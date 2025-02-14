@@ -114,7 +114,7 @@ export default function Header() {
 
   return (
     <header className="bg-[#041E42] p-4 border-b-4 border-[#AC252D]">
-      <div className="container mx-auto lg:mx-36">
+      <div className="container mx-auto lg:mx-36 sm:mx-4">
         <div className="flex justify-between items-center mb-4">
           <Link href="/">
             <Image src="/tsb.png" alt="Logo" width={128} height={40} className="h-8" />
