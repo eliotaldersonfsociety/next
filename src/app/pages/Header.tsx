@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
+// Solo para entorno Node.js (no afecta al navegador)
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 export default function Header() {
@@ -35,7 +35,7 @@ export default function Header() {
   const router = useRouter();
 
   interface LoginResponse {
-    Token: string;
+    token: string;
     user: {
       id: number;
       name: string;
@@ -61,7 +61,7 @@ export default function Header() {
       const data: LoginResponse = await response.json();
       console.log("Datos recibidos:", data);
 
-      if (!data.Token || !data.user) {
+      if (!data.token || !data.user) {
         throw new Error('Respuesta del servidor no válida');
       }
 
@@ -73,7 +73,7 @@ export default function Header() {
           email: data.user.email,
           isOnline: true,
         },
-        data.Token // Pasa el token recibido
+        data.token // Pasa el token recibido
       );
 
       setEmail('');
