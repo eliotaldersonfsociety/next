@@ -115,7 +115,7 @@ export default function UserDashboardWithAvatar() {
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/v1/posts", {
+        const response = await fetch("https://apli-zts6.vercel.app/api/v1/posts", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
