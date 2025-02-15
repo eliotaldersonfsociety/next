@@ -24,9 +24,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-// Solo para entorno Node.js (no afecta al navegador)
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 export default function Header() {
   const { cart, isCartOpen, setIsCartOpen, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
   const { session, clearUserSession, setUserSession, sessionLoading } = useSession();
