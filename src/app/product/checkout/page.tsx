@@ -67,7 +67,7 @@ export default function CheckoutPage() {
     const userData: UserData = { name, lastname, email, password, repassword, direction, postalcode };
 
     try {
-      const res = await fetch("http://localhost:3001/api/v1/auth/register", {
+      const res = await fetch("https://apli-zts6.vercel.app/api/v1/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),

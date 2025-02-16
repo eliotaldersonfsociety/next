@@ -25,7 +25,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-
 export default function Header() {
   const { cart, isCartOpen, setIsCartOpen, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
   const { session, clearUserSession, setUserSession, sessionLoading } = useSession();
@@ -34,7 +33,7 @@ export default function Header() {
   const router = useRouter();
 
   interface LoginResponse {
-    Token: string;
+    token: string;
     user: {
       id: number;
       name: string;
@@ -46,7 +45,7 @@ export default function Header() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3001/api/v1/auth/login', {
+      const response = await fetch('https://apli-zts6.vercel.app/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -60,7 +59,7 @@ export default function Header() {
       const data: LoginResponse = await response.json();
       console.log("Datos recibidos:", data);
 
-      if (!data.Token || !data.user) {
+      if (!data.token || !data.user) {
         throw new Error('Respuesta del servidor no válida');
       }
 
@@ -72,7 +71,7 @@ export default function Header() {
           email: data.user.email,
           isOnline: true,
         },
-        data.Token // Pasa el token recibido
+        data.token // Pasa el token recibido
       );
 
       setEmail('');
@@ -113,7 +112,7 @@ export default function Header() {
 
   return (
     <header className="bg-[#041E42] p-4 border-b-4 border-[#AC252D]">
-      <div className="container mx-auto lg:mx-36">
+      <div className="container mx-auto lg:mx-36 sm:mx-4">
         <div className="flex justify-between items-center mb-4">
           <Link href="/">
             <Image src="/tsb.png" alt="Logo" width={128} height={40} className="h-8" />
