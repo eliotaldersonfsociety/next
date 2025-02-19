@@ -95,9 +95,6 @@ export default function UserDashboardWithAvatar() {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', response.json());
         
         console.log("Respuesta del servidor:", res.status, res.statusText);
         if (!res.ok) {
