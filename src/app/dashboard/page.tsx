@@ -109,7 +109,9 @@ export default function UserDashboardWithAvatar() {
         toast.error("Error al obtener el saldo");
       }
     };
-    fetchSaldo();
+    if (token) {
+      fetchSaldo();
+    }
   }, [token]);
 
   // Obtener compras del usuario (endpoint protegido)
