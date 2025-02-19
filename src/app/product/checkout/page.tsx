@@ -83,7 +83,7 @@ export default function CheckoutPage() {
       localStorage.setItem("totalPrice", total.toString());
       //clearCart();
       alert("Registro exitoso y pedido realizado");
-      router.push("/paypal");
+      router.push("/payments");
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
