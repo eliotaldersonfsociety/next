@@ -21,7 +21,7 @@ import Footer from "../pages/footer";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
-import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar
+import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar❤️
 
 interface PurchasedProduct {
   items: string | { name: string; image: string }[];
