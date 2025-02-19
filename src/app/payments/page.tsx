@@ -47,7 +47,7 @@ const PaypalPage = () => {
       }
       try {
         console.log("Obteniendo saldo...");
-        const res = await fetch("https://aaa-three-eta.vercel.app/api/v1/user/saldo", {
+        const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/saldo", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) {
@@ -89,7 +89,7 @@ const PaypalPage = () => {
       const tokenLocal = getToken();
       if (!tokenLocal) return;
 
-      const res = await fetch("http://localhost:3001/api/v1/posts", {
+      const res = await fetch("https://aaa-njli.vercel.app/api/v1/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const PaypalPage = () => {
     if (!tokenLocal) return;
 
     try {
-      const res = await fetch("http://localhost:3001/api/v1/actualizar", {
+      const res = await fetch("https://aaa-njli.vercel.app/api/v1/actualizar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
