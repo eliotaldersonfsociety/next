@@ -91,6 +91,7 @@ export default function UserDashboardWithAvatar() {
       }
       try {
         console.log("Obteniendo saldo...");
+         console.log("Token que se está enviando:", token); // Verificar el valor del token
         const res = await fetch("https://aaa-three-eta.vercel.app/api/v1/user/saldo", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
