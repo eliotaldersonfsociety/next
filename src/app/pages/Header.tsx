@@ -39,7 +39,7 @@ export default function Header() {
       name: string;
       lastname?: string;
       email: string;
-      saldo: number
+      saldo: string
     };
   }
 
