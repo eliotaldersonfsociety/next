@@ -39,7 +39,6 @@ export default function Header() {
       name: string;
       lastname?: string;
       email: string;
-      saldo: string
     };
   }
 
@@ -70,7 +69,6 @@ export default function Header() {
           name: data.user.name,
           lastname: data.user.lastname || '',
           email: data.user.email,
-          saldo: data.user.saldo
           isOnline: true,
         },
         data.token // Pasa el token recibido
