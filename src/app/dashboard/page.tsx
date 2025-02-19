@@ -88,7 +88,7 @@ export default function UserDashboardWithAvatar() {
       }
       try {
         console.log("Token que se está enviando:", token); // Verificar el valor del token
-        const res = await fetch("https://aaa-three-eta.vercel.app/api/v1/user/saldo", {
+        const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/saldo", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -116,7 +116,7 @@ export default function UserDashboardWithAvatar() {
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
-        const response = await fetch("https://aaa-three-eta.vercel.app/api/v1/purchases", {
+        const response = await fetch("https://aaa-njli.vercel.app/api/v1/purchases", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
