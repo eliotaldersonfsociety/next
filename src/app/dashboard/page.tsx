@@ -91,7 +91,7 @@ export default function UserDashboardWithAvatar() {
       }
       try {
         console.log("Obteniendo saldo...");
-        const res = await fetch("http://localhost:3001/api/v1/user/saldo", {
+        const res = await fetch("https://aaa-three-eta.vercel.app/api/v1/user/saldo", {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("Respuesta del servidor:", res.status, res.statusText);
