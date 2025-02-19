@@ -90,11 +90,15 @@ export default function UserDashboardWithAvatar() {
         return;
       }
       try {
-         console.log("Token que se está enviando:", token); // Verificar el valor del token
+         console.log("Token que se está enviando papi:", token); // Verificar el valor del token
         const res = await fetch("https://aaa-three-eta.vercel.app/api/v1/user/saldo", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', response.json());
+        
         console.log("Respuesta del servidor:", res.status, res.statusText);
         if (!res.ok) {
           const errorText = await res.text();
