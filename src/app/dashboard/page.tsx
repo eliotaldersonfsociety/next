@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -26,7 +24,6 @@ import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar
 
 interface PurchasedProduct {
-  // Asegúrate de que el campo de fecha se llame "created_at" y esté en un formato adecuado.
   items: string | { name: string; image: string }[];
   total_amount: number;
   created_at: string;
@@ -90,12 +87,12 @@ export default function UserDashboardWithAvatar() {
         return;
       }
       try {
-         console.log("Token que se está enviando papi:", token); // Verificar el valor del token
+        console.log("Token que se está enviando:", token); // Verificar el valor del token
         const res = await fetch("https://aaa-three-eta.vercel.app/api/v1/user/saldo", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
-        
+
         console.log("Respuesta del servidor:", res.status, res.statusText);
         if (!res.ok) {
           const errorText = await res.text();
