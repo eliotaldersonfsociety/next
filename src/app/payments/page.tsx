@@ -68,7 +68,7 @@ const PaypalPage = () => {
 
   // Actualizamos el total del carrito cada vez que cambia
   useEffect(() => {
-    setTotal(getTotal());
+    setTotal(Number(getTotal()));
   }, [cart, getTotal]);
 
   // Función auxiliar para obtener el token (usamos el token del contexto)
@@ -130,7 +130,7 @@ const PaypalPage = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenLocal}`,
         },
-        body: JSON.stringify({ amount: -total }),
+        body: JSON.stringify({ total_amount: (total) * -1 }),
       });
       if (!res.ok) {
         const errorData = await res.json();
