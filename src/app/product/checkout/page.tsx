@@ -67,7 +67,7 @@ export default function CheckoutPage() {
     const userData: UserData = { name, lastname, email, password, repassword, direction, postalcode };
 
     try {
-      const res = await fetch("https://aaa-njli-rho.vercel.app/api/v1/user/register", {
+      const res = await fetch("aaa-eight-beta.vercel.app/api/v1/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
