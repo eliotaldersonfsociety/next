@@ -89,7 +89,7 @@ const PaypalPage = () => {
       const tokenLocal = getToken();
       if (!tokenLocal) return;
 
-      const res = await fetch("https://aaa-njli.vercel.app/api/v1/posts", {
+      const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/compra", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const PaypalPage = () => {
     if (!tokenLocal) return;
 
     try {
-      const res = await fetch("https://aaa-njli.vercel.app/api/v1/actualizar", {
+      const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/actualizar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
