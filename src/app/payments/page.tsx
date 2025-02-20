@@ -123,6 +123,14 @@ const PaypalPage = () => {
     const tokenLocal = getToken();
     if (!tokenLocal) return;
 
+    const totalAmount = Number(total);
+
+    if (isNaN(totalAmount)) {
+      console.error("Error: total_amount no es un número válido");
+      toast.error("Error: total_amount no es un número válido");
+      return;
+    }
+
     try {
       const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/actualizar", {
         method: "POST",
