@@ -99,7 +99,7 @@ const PaypalPage = () => {
           userId: session.id,
           items: cart,
           payment_method: paymentMethod,
-          total_amount: total,
+          total_amount: Number(total),
         }),
       });
       if (!res.ok) throw new Error("No se pudo guardar la compra");
