@@ -31,7 +31,7 @@ const PaypalPage = () => {
       return;
     }
 
-    // Si ya se cargó y no hay sesión, redirigimos
+    // Si ya se cargó y no hay sesión, redirigimos❤️
     if (!session || !session.isOnline) {
       toast.error("Usuario no autenticado");
       router.push("/login");
