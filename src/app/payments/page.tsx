@@ -70,6 +70,9 @@ const PaypalPage = () => {
   useEffect(() => {
     setTotal(Number(getTotal()));
   }, [cart, getTotal]);
+  console.log("getTotal() devuelve:", getTotal());
+  console.log("Tipo de getTotal():", typeof getTotal());
+
 
   // Función auxiliar para obtener el token (usamos el token del contexto)
   const getToken = () => {
@@ -132,6 +135,8 @@ const PaypalPage = () => {
     }
 
     try {
+      console.log("Enviando total_amount:", totalAmount * -1);
+      console.log("Tipo de total_amount:", typeof totalAmount);
       const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/actualizar", {
         method: "POST",
         headers: {
