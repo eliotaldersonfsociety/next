@@ -31,7 +31,7 @@ const PaypalPage = () => {
       return;
     }
 
-    // Si ya se cargó y no hay sesión, redirigimos❤️
+    // Si ya se cargó y no hay sesión, redirigimos❤️😍
     if (!session || !session.isOnline) {
       toast.error("Usuario no autenticado");
       router.push("/login");
@@ -88,6 +88,10 @@ const PaypalPage = () => {
     try {
       const tokenLocal = getToken();
       if (!tokenLocal) return;
+
+    console.log("Total a descontar:", total);
+    console.log("Tipo de total:", typeof total);
+
 
       const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/compra", {
         method: "POST",
