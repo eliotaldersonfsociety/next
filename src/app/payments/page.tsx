@@ -47,7 +47,7 @@ const PaypalPage = () => {
       }
       try {
         console.log("Obteniendo saldo...");
-        const res = await fetch("aaa-eight-beta.vercel.app/api/v1/user/saldo", {
+        const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/saldo", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) {
