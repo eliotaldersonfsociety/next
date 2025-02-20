@@ -96,7 +96,7 @@ const PaypalPage = () => {
     console.log("Tipo de total:", typeof total);
 
 
-      const res = await fetch("aaa-eight-beta.vercel.app/api/v1/user/compras", {
+      const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/compras", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ const PaypalPage = () => {
     try {
       console.log("Enviando total_amount:", totalAmount * -1);
       console.log("Tipo de total_amount:", typeof totalAmount);
-      const res = await fetch("aaa-eight-beta.vercel.app/api/v1/user/actualizar", {
+      const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/actualizar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
