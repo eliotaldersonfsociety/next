@@ -93,7 +93,7 @@ const PaypalPage = () => {
     console.log("Tipo de total:", typeof total);
 
 
-      const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/compra", {
+      const res = await fetch("https://aaa-njli.vercel.app/api/v1/user/compras", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
