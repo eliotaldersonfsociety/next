@@ -26,7 +26,7 @@ const PaypalPage = () => {
   const [saldo, setSaldo] = useState<number>(0);
 
   useEffect(() => {
-    // Mientras se carga la sesión, mostramos un indicador
+    // Mientras se carga la sesión, mostramos un indicador 🤞
     if (sessionLoading) {
       return;
     }
@@ -119,56 +119,35 @@ const PaypalPage = () => {
   };
 
   const handlePayWithSaldo = async () => {
-    if (saldo < total) {
-      toast.error("Saldo insuficiente");
-      return;
+  const userId = ...; // Obtén el userId de alguna parte del estado o props
+  const total_amount = parseFloat(total.toFixed(2)); // Asegúrate de que total sea un número
+
+  if (isNaN(total_amount) || total_amount <= 0) {
+    toast.error("El total de la compra es inválido");
+    return;
+  }
+
+  try {
+    const response = await fetch('https://aaa-eight-beta.vercel.app/api/v1/user/actualizar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId, total_amount }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      toast.error(`Error al actualizar saldo: ${errorData.message}`);
+    } else {
+      const data = await response.json();
+      toast.success(data.message);
     }
-    const tokenLocal = getToken();
-    if (!tokenLocal) return;
-
-    const totalAmount = Number(total);
-
-    if (isNaN(totalAmount)) {
-      console.error("Error: total_amount no es un número válido");
-      toast.error("Error: total_amount no es un número válido");
-      return;
-    }
-
-    try {
-      console.log("Enviando total_amount:", totalAmount * -1);
-      console.log("Tipo de total_amount:", typeof totalAmount);
-      const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/actualizar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenLocal}`,
-        },
-        body: JSON.stringify({ total_amount: (total) * -1 }),
-      });
-      if (!res.ok) {
-        const errorData = await res.json();
-        console.error("Error al actualizar saldo:", errorData);
-        throw new Error("No se pudo actualizar el saldo");
-      }
-      setSaldo((prev) => prev - total);
-      await savePurchaseToAPI("Saldo");
-      clearCart();
-
-      // Guardamos los detalles de la compra en localStorage
-      const purchaseDetails = {
-        total,
-        paymentMethod: "Saldo",
-        items: cart,
-      };
-      localStorage.setItem("purchaseDetails", JSON.stringify(purchaseDetails));
-
-      toast.success("Pago realizado con éxito");
-      router.push("/paypal/thankyou");
-    } catch (error) {
-      console.error("Error al procesar el pago con saldo:", error);
-      toast.error("Error al procesar el pago");
-    }
-  };
+  } catch (error) {
+    toast.error("Error al procesar el pago con saldo");
+    console.error("Error al procesar el pago con saldo", error);
+  }
+};
 
   const handlePayWithPayPal = async () => {
     try {
