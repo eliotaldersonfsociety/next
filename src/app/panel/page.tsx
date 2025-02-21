@@ -433,9 +433,23 @@ export default function UserDashboardWithAvatar() {
                       <input
                         type="number"
                         placeholder="Nuevo saldo"
-                        onBlur={(e) => updateUserSaldo(user.email, parseFloat(e.target.value))}
+                        onChange={(e) => {
+                          const newSaldo = parseFloat(e.target.value);
+                          setUsers((prevUsers) =>
+                            prevUsers.map((u) =>
+                              u.email === user.email ? { ...u, saldo: newSaldo } : u
+                            )
+                          );
+                        }}
                         className="border p-1 rounded"
                       />
+                      <button
+                        onClick={() => updateUserSaldo(user.email, user.saldo)}
+                        className="ml-2 p-2 bg-blue-500 text-white rounded"
+                      >
+                        Recargar Saldo
+                      </button>
+
                     </TableCell>
                   </TableRow>
                 ))}
