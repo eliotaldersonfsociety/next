@@ -221,6 +221,7 @@ export default function UserDashboardWithAvatar() {
       });
       if (!response.ok) throw new Error("Failed to update saldo");
       const data = await response.json();
+      console.log("Datos obtenidos:", data); // Usa 'data' para algo
       setUsers((prevUsers) =>
         prevUsers.map((user) => (user.email === email ? { ...user, saldo: newSaldo } : user))
       );
