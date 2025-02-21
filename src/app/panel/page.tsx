@@ -149,7 +149,7 @@ export default function UserDashboardWithAvatar() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/recargar", {
+        const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/recargar", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -164,19 +164,6 @@ export default function UserDashboardWithAvatar() {
       fetchUsers();
     }
   }, [session, token]);
-
-  // Ordenar las compras de forma descendente:
-  // La compra con la fecha más reciente (mayor timestamp) quedará en la posición 0
-  const sortedPurchases = [...purchasedProducts].sort((a, b) => {
-    const timeA = a.created_at ? new Date(a.created_at).getTime() : 0;
-    const timeB = b.created_at ? new Date(b.created_at).getTime() : 0;
-    return timeB - timeA;
-  });
-
-  console.log("Sorted purchases:", sortedPurchases); // Verifica las compras ordenadas
-
-  // La "Última Compra" (en el sentido de la compra más reciente) se toma del primer elemento
-  const mostRecentPurchase = sortedPurchases[0];
 
   // Paginación: calcular número total de páginas
   const totalPages = Math.ceil(sortedPurchases.length / itemsPerPage) || 1;
