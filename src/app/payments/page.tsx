@@ -71,7 +71,7 @@ const PaypalPage = () => {
   const getToken = () => {
     if (!token) {
       toast.error("Token no encontrado");
-      router.push("/login");
+      router.push("/");
     }
     return token;
   };
