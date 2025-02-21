@@ -76,76 +76,96 @@ const PaypalPage = () => {
     return token;
   };
 
-  const savePurchaseToAPI = async (paymentMethod: string) => {
-    if (!session) {
-      toast.error("Usuario no autenticado");
-      return;
-    }
-    try {
-      const tokenLocal = getToken();
-      if (!tokenLocal) return;
-
-      console.log("Total a descontar:", total);
-      console.log("Tipo de total:", typeof total);
-
-      const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/compras", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenLocal}`,
-        },
-        body: JSON.stringify({
-          userId: session.id,
-          items: cart,
-          payment_method: paymentMethod,
-          total_amount: Number(total),
-        }),
-      });
-      if (!res.ok) throw new Error("No se pudo guardar la compra");
-
-      toast.success("Compra guardada con éxito");
-    } catch (error) {
-      console.error("Error al guardar la compra:", error);
-      toast.error("Error al guardar la compra");
-    }
-  };
-
   const handlePayWithSaldo = async () => {
-    if (!session) {
-      toast.error("Usuario no autenticado");
+  if (!session) {
+    toast.error("Usuario no autenticado");
+    return;
+  }
+
+  const userId = session.id; // Obtén el userId del contexto de sesión
+  const total_amount = parseFloat(total.toFixed(2)); // Asegúrate de que total sea un número
+
+  if (isNaN(total_amount) || total_amount <= 0) {
+    toast.error("El total de la compra es inválido");
+    return;
+  }
+
+  try {
+    // Actualizar saldo
+    const response = await fetch('https://aaa-eight-beta.vercel.app/api/v1/user/actualizar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, total_amount }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      toast.error(`Error al actualizar saldo: ${errorData.message}`);
       return;
     }
 
-    const userId = session.id; // Obtén el userId del contexto de sesión
-    const total_amount = parseFloat(total.toFixed(2)); // Asegúrate de que total sea un número
+    const data = await response.json();
+    toast.success(data.message);
 
-    if (isNaN(total_amount) || total_amount <= 0) {
-      toast.error("El total de la compra es inválido");
-      return;
-    }
+    // Guardar detalles de la compra en localStorage
+    const purchaseDetails = {
+      total: total_amount,
+      paymentMethod: "Saldo",
+      items: cart,
+    };
+    localStorage.setItem("purchaseDetails", JSON.stringify(purchaseDetails));
 
-    try {
-      const response = await fetch('https://aaa-eight-beta.vercel.app/api/v1/user/actualizar', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ userId, total_amount }),
-      });
+    // Limpiar el carrito
+    clearCart();
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        toast.error(`Error al actualizar saldo: ${errorData.message}`);
-      } else {
-        const data = await response.json();
-        toast.success(data.message);
-      }
-    } catch (error) {
-      toast.error("Error al procesar el pago con saldo");
-      console.error("Error al procesar el pago con saldo", error);
-    }
-  };
+    // Guardar la compra a través de la API
+    await savePurchaseToAPI("Saldo");
+
+    // Redirigir a la página de agradecimiento
+    router.push("/saldo/thankyou");
+  } catch (error) {
+    toast.error("Error al procesar el pago con saldo");
+    console.error("Error al procesar el pago con saldo", error);
+  }
+};
+
+const savePurchaseToAPI = async (paymentMethod: string) => {
+  if (!session) {
+    toast.error("Usuario no autenticado");
+    return;
+  }
+  try {
+    const tokenLocal = getToken();
+    if (!tokenLocal) return;
+
+    console.log("Total a descontar:", total);
+    console.log("Tipo de total:", typeof total);
+
+    const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/compras", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenLocal}`,
+      },
+      body: JSON.stringify({
+        userId: session.id,
+        items: cart,
+        payment_method: paymentMethod,
+        total_amount: Number(total),
+      }),
+    });
+    if (!res.ok) throw new Error("No se pudo guardar la compra");
+
+    toast.success("Compra guardada con éxito");
+  } catch (error) {
+    console.error("Error al guardar la compra:", error);
+    toast.error("Error al guardar la compra");
+  }
+};
+
 
   const handlePayWithPayPal = async () => {
     try {
