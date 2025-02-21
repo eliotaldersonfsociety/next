@@ -39,6 +39,7 @@ export default function Header() {
       name: string;
       lastname?: string;
       email: string;
+      isAdmin?": boolean;
     };
   }
 
@@ -70,6 +71,7 @@ export default function Header() {
           lastname: data.user.lastname || '',
           email: data.user.email,
           isOnline: true,
+          isAdmin: data.user.isAdmin || false,
         },
         data.token // Pasa el token recibido
       );
@@ -79,7 +81,7 @@ export default function Header() {
       
       //redirigir segun el rol
       if (data.user.isAdmin){
-        router.push('panel');
+        router.push('/panel');
       } else {
         router.push('/dashboard')
       }
