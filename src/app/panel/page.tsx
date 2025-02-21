@@ -149,7 +149,7 @@ export default function UserDashboardWithAvatar() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/users", {
+        const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/recargar", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
