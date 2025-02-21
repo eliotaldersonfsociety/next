@@ -142,8 +142,8 @@ export default function UserDashboardWithAvatar() {
   // Ordenar las compras de forma descendente:
   // La compra con la fecha más reciente (mayor timestamp) quedará en la posición 0
   const sortedPurchases = [...purchasedProducts].sort((a, b) => {
-    const timeA = new Date(a.created_at).getTime();
-    const timeB = new Date(b.created_at).getTime();
+    const timeA = a.created_at ? new Date(a.created_at).getTime() : 0;
+    const timeB = b.created_at ? new Date(b.created_at).getTime() : 0;
     return timeB - timeA;
   });
 
