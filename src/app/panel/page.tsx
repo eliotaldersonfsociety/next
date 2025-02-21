@@ -24,15 +24,6 @@ import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar❤️
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface PurchasedProduct {
-  items: string | { name: string; image: string }[];
-  total_amount: number;
-  created_at: string;
-}
-
-
-
 interface User {
   email: string;
   saldo: number;
@@ -46,6 +37,8 @@ export default function UserDashboardWithAvatar() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
   const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
+  const [mostRecentPurchase, setMostRecentPurchase] = useState<PurchasedProduct | null>(null); // Estado para la compra más reciente
+
 
   // Paginación: 10 compras por página
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -139,6 +132,8 @@ export default function UserDashboardWithAvatar() {
         const data = await response.json();
         console.log("Fetched purchases:", data.purchases); // Verifica los datos recibidos
         setPurchasedProducts(data.purchases || []);
+        setMostRecentPurchase(data.purchases[0] || null); // Aquí se establece la compra más reciente
+
       } catch (error) {
         console.error("Error fetching purchases:", error);
       }
