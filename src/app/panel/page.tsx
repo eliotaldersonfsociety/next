@@ -38,7 +38,6 @@ interface User {
 export default function UserDashboardWithAvatar() {
   const { session, token, clearUserSession, sessionLoading } = useSession();
   const router = useRouter();
-  const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
   const [showDollarIcon, setShowDollarIcon] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -166,17 +165,17 @@ export default function UserDashboardWithAvatar() {
   }, [session, token]);
 
   // Paginación: calcular número total de páginas
-  const totalPages = Math.ceil(sortedPurchases.length / itemsPerPage) || 1;
+  const totalPages = Math.ceil(purchasedProducts.length / itemsPerPage) || 1;
 
   // Si la página actual es mayor que el total de páginas, reajustarla
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
-  }, [sortedPurchases, currentPage, totalPages]);
+  }, [currentPage, totalPages]);
 
   // Extraer las compras a mostrar en la página actual
-  const displayedPurchases = sortedPurchases.slice(
+  const displayedPurchases = purchasedProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
