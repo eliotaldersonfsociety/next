@@ -234,7 +234,10 @@ export default function UserDashboardWithAvatar() {
     await updateUserSaldo(user.email, saldoAIncrementar);
     // Limpia el input para ese usuario
     setInputSaldo((prev) => ({ ...prev, [user.email]: '' }));
-    window.location.reload(); // Recarga la página para mostrar el nuevo saldo
+    toast.success("Saldo actualizado con éxito");
+    setTimeout(() => {
+      window.location.reload(); // Recarga la página para mostrar el nuevo saldo
+    }, 2000);
 
   };
 
