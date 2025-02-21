@@ -24,6 +24,15 @@ import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar❤️
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface PurchasedProduct {
+  items: string | { name: string; image: string }[];
+  total_amount: number;
+  created_at: string;
+}
+
+
+
 interface User {
   email: string;
   saldo: number;
