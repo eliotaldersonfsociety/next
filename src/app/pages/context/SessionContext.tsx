@@ -9,6 +9,7 @@ export type UserSession = {
   lastname: string;
   email: string;
   isOnline: boolean;
+  isAdmin?: boolean; // Añadir la propiedad isAdmin
   avatar?: string; // Propiedad para el avatar (opcional)
 };
 
