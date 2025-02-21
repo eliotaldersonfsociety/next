@@ -36,6 +36,7 @@ export default function UserDashboardWithAvatar() {
   const [showDollarIcon, setShowDollarIcon] = useState(false);
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
+  const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
 
   // Paginación: 10 compras por página
   const [currentPage, setCurrentPage] = useState<number>(1);
