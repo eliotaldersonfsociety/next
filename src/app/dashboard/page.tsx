@@ -123,11 +123,12 @@ export default function UserDashboardWithAvatar() {
         });
         if (response.status === 401) {
           clearUserSession();
-          router.push("/login");
+          router.push("/");
           return;
         }
         if (!response.ok) throw new Error("Failed to fetch purchases");
         const data = await response.json();
+        console.log("Fetched purchases:", data.purchases); // Verifica los datos recibidos
         setPurchasedProducts(data.purchases || []);
       } catch (error) {
         console.error("Error fetching purchases:", error);
@@ -146,8 +147,7 @@ export default function UserDashboardWithAvatar() {
     return timeB - timeA;
   });
 
-  // Verifica que la compra más reciente sea la que aparece en el índice 0
-  console.log("Compra más reciente (sortedPurchases[0]):", sortedPurchases[0]);
+  console.log("Sorted purchases:", sortedPurchases); // Verifica las compras ordenadas
 
   // La "Última Compra" (en el sentido de la compra más reciente) se toma del primer elemento
   const mostRecentPurchase = sortedPurchases[0];
