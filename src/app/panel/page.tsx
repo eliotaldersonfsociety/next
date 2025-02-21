@@ -201,7 +201,7 @@ export default function UserDashboardWithAvatar() {
   // Función para modificar el saldo de un usuario
   const updateUserSaldo = async (email: string, newSaldo: number) => {
     try {
-      const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/saldo", {
+      const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/updateSaldo", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
