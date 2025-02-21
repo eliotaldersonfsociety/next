@@ -177,7 +177,7 @@ export default function Header() {
                 {session ? (
                   <>
                     <DropdownMenuItem>{session.name} {session.lastname}</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push('/dashboard/')}>Ir al Dashboard</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => session.isAdmin ? router.push('/panel/') : router.push('/dashboard/')}>Ir al Dashboard</DropdownMenuItem>
                     <DropdownMenuItem onClick={handleLogout}>Cerrar sesión</DropdownMenuItem>
                   </>
                 ) : (
