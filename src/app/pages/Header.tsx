@@ -76,6 +76,14 @@ export default function Header() {
 
       setEmail('');
       setPassword('');
+      
+      //redirigir segun el rol
+      if (data.user.isAdmin){
+        router.push('panel');
+      } else {
+        router.push('/dashboard')
+      }
+      
       alert('Inicio de sesión exitoso');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
