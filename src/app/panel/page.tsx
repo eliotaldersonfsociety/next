@@ -24,6 +24,11 @@ import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar❤️
 
+interface PurchasedProduct {
+  items: string | { name: string; image: string }[];
+  total_amount: number;
+}
+
 interface User {
   email: string;
   saldo: number;
