@@ -234,7 +234,7 @@ export default function UserDashboardWithAvatar() {
     await updateUserSaldo(user.email, saldoAIncrementar);
     // Limpia el input para ese usuario
     setInputSaldo((prev) => ({ ...prev, [user.email]: '' }));
-    router.reload(); // Recarga la página para mostrar el nuevo saldo
+    window.location.reload(); // Recarga la página para mostrar el nuevo saldo
 
   };
 
