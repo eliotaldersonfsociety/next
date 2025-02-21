@@ -457,7 +457,11 @@ export default function UserDashboardWithAvatar() {
                       >
                         Recargar Saldo
                       </button>
-
+                      {/* Vista previa de la suma: saldo actual + nuevo valor ingresado */}
+                      <div className="mt-2 text-sm text-gray-600">
+                        Saldo final: $
+                        {(user.saldo + (parseFloat(inputSaldo[user.email] as string) || 0)).toFixed(2)}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
