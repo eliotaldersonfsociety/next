@@ -43,7 +43,7 @@ export default function UserDashboardWithAvatar() {
   const [users, setUsers] = useState<User[]>([]);
   const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
   const [mostRecentPurchase, setMostRecentPurchase] = useState<PurchasedProduct | null>(null); // Estado para la compra más reciente
-
+  const [inputSaldo, setInputSaldo] = useState<{ [key: string]: number | string }>({}); // Estado para el input de saldo de cada usuario
 
   // Paginación: 10 compras por página
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -220,6 +220,20 @@ export default function UserDashboardWithAvatar() {
       console.error("Error updating saldo:", error);
       toast.error("Error al actualizar el saldo");
     }
+  };
+
+  // Maneja el cambio en el input para cada usuario
+  const handleSaldoChange = (email: string, e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSaldo = parseFloat(e.target.value);
+    setInputSaldo((prev) => ({ ...prev, [email]: newSaldo }));
+  };
+
+  // Esta función se encarga de llamar a updateUserSaldo y, una vez exitosa, limpia el input
+  const handleRecargarSaldo = async (user: User) => {
+    const saldoAIncrementar = Number(inputSaldo[user.email]) || 0;
+    await updateUserSaldo(user.email, saldoAIncrementar);
+    // Limpia el input para ese usuario
+    setInputSaldo((prev) => ({ ...prev, [user.email]: '' }));
   };
 
   if (loading) {
@@ -433,18 +447,12 @@ export default function UserDashboardWithAvatar() {
                       <input
                         type="number"
                         placeholder="Nuevo saldo"
-                        onChange={(e) => {
-                          const newSaldo = parseFloat(e.target.value);
-                          setUsers((prevUsers) =>
-                            prevUsers.map((u) =>
-                              u.email === user.email ? { ...u, saldo: newSaldo } : u
-                            )
-                          );
-                        }}
+                        value={inputSaldo[user.email] || ''}
+                        onChange={(e) => handleSaldoChange(user.email, e)}
                         className="border p-1 rounded"
                       />
                       <button
-                        onClick={() => updateUserSaldo(user.email, user.saldo)}
+                        onClick={() => handleRecargarSaldo(user)}
                         className="ml-2 p-2 bg-blue-500 text-white rounded"
                       >
                         Recargar Saldo
