@@ -125,7 +125,7 @@ const PaypalPage = () => {
     await savePurchaseToAPI("Saldo");
 
     // Redirigir a la página de agradecimiento
-    router.push("/saldo/thankyou");
+    router.push("/thankyou");
   } catch (error) {
     toast.error("Error al procesar el pago con saldo");
     console.error("Error al procesar el pago con saldo", error);
