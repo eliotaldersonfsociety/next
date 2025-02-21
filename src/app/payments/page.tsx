@@ -125,7 +125,7 @@ const PaypalPage = () => {
     await savePurchaseToAPI("Saldo");
 
     // Redirigir a la página de agradecimiento
-    router.push("/thankyou");
+    router.push("/payments/thankyou/");
   } catch (error) {
     toast.error("Error al procesar el pago con saldo");
     console.error("Error al procesar el pago con saldo", error);
@@ -178,7 +178,7 @@ const savePurchaseToAPI = async (paymentMethod: string) => {
       localStorage.setItem("purchaseDetails", JSON.stringify(purchaseDetails));
       clearCart();
       toast.success("Pago realizado con éxito");
-      router.push("/paypal/thankyou");
+      router.push("/payments/thankyou/");
     } catch (error) {
       console.log("Error al procesar el pago con PayPal", error);
       toast.error("Error al procesar el pago con PayPal");
