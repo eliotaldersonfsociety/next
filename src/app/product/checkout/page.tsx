@@ -48,7 +48,7 @@ export default function CheckoutPage() {
     token?: string;
   }
 
-  // Redirigir a PayPal si la sesión está activa
+  // Redirigir a PayPal si la sesión está activa ❤️
   useEffect(() => {
     if (session) {
       router.push("/paypal");
