@@ -90,6 +90,11 @@ export default function CheckoutPage() {
 
       // Actualizar la sesión con los datos del usuario si se reciben
       if (data.token && data.newUser) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.newUser));
+        console.log(dat.token)
+        console.log(dat.newUser)
+        
         setUserSession({ ...data.newUser, isOnline: true }, data.token);
       } else {
         setUserSession(
