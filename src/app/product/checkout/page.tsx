@@ -13,7 +13,7 @@ import { useSession } from "../../pages/context/SessionContext"; // Importa el h
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  const { session, setUserSession } = useSession(); // Obtén la sesión
+  const { session, setUserSession } = useSession();
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +24,10 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const subtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
+  const subtotal = cart.reduce(
+    (sum, item) => sum + Number(item.price) * item.quantity,
+    0
+  );
   const total = subtotal;
 
   interface UserData {
@@ -37,18 +40,7 @@ export default function CheckoutPage() {
     postalcode: string;
   }
 
-  interface ApiResponse {
-    message?: string;
-    newUser?: {
-      id: string;
-      name: string;
-      lastname: string;
-      email: string;
-    };
-    token?: string;
-  }
-
-  // Redirigir a PayPal si la sesión está activa ❤️
+  // Si la sesión ya está activa, redirige a PayPal ❤️
   useEffect(() => {
     if (session) {
       router.push("/paypal");
@@ -70,18 +62,17 @@ export default function CheckoutPage() {
       const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include", // Incluye las cookies en la petición
         body: JSON.stringify(userData),
       });
 
-      const data: ApiResponse = await res.json();
-      if (!res.ok) throw new Error(data.message || "Error en el registro"); 
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error en el registro");
 
-      if (data.token && data.newUser) {
-        setUserSession({ ...data.newUser, isOnline: true }, data.token);
-      }
+      // El token se almacena en una cookie httpOnly, por lo que aquí actualizamos la sesión marcando al usuario como online.
+      setUserSession({ isOnline: true });
 
       localStorage.setItem("totalPrice", total.toString());
-      //clearCart();
       alert("Registro exitoso y pedido realizado");
       router.push("/payments");
     } catch (error: unknown) {
