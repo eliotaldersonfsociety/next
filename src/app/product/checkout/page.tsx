@@ -13,7 +13,7 @@ import { useSession } from "../../pages/context/SessionContext"; // Importa el h
 
 export default function CheckoutPage() {
   const { cart } = useCart();
-  const { session, setUserSession } = useSession();
+  const { session, setUserSession } = useSession(); // Obtén la sesión
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
@@ -40,7 +40,18 @@ export default function CheckoutPage() {
     postalcode: string;
   }
 
-  // Si la sesión ya está activa, redirige a PayPal ❤️
+  interface ApiResponse {
+    message?: string;
+    newUser?: {
+      id: string;
+      name: string;
+      lastname: string;
+      email: string;
+    };
+    token?: string;
+  }
+
+  // Redirigir a PayPal si la sesión está activa ❤️
   useEffect(() => {
     if (session) {
       router.push("/paypal");
@@ -56,7 +67,15 @@ export default function CheckoutPage() {
       return;
     }
 
-    const userData: UserData = { name, lastname, email, password, repassword, direction, postalcode };
+    const userData: UserData = {
+      name,
+      lastname,
+      email,
+      password,
+      repassword,
+      direction,
+      postalcode,
+    };
 
     try {
       const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/register", {
@@ -66,11 +85,11 @@ export default function CheckoutPage() {
         body: JSON.stringify(userData),
       });
 
-      const data = await res.json();
+      const data: ApiResponse = await res.json();
       if (!res.ok) throw new Error(data.message || "Error en el registro");
 
       // El token se almacena en una cookie httpOnly, por lo que aquí actualizamos la sesión marcando al usuario como online.
-      setUserSession({ isOnline: true });
+      setUserSession({ isOnline: true }, ""); // Se pasa un segundo argumento (cadena vacía)
 
       localStorage.setItem("totalPrice", total.toString());
       alert("Registro exitoso y pedido realizado");
