@@ -94,17 +94,6 @@ export default function CheckoutPage() {
       } else {
         setUserSession(
           { 
-            id: data.newUser.id, 
-            name: data.newUser.name, 
-            lastname: data.newUser.lastname, 
-            email: data.newUser.email, 
-            isOnline: true 
-          },
-          ""
-        );
-      } else {
-        setUserSession(
-          { 
             id: "", 
             name: "", 
             lastname: "", 
