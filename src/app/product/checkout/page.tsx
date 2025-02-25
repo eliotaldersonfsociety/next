@@ -92,8 +92,8 @@ export default function CheckoutPage() {
       if (data.token && data.newUser) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.newUser));
-        console.log(dat.token)
-        console.log(dat.newUser)
+        console.log(data.token)
+        console.log(data.newUser)
         
         setUserSession({ ...data.newUser, isOnline: true }, data.token);
       } else {
