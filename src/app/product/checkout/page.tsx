@@ -53,8 +53,8 @@ export default function CheckoutPage() {
 
   // Redirigir a PayPal si la sesión está activa ❤️
   useEffect(() => {
-    console.log("Session value:", session); // Depuración de la sesión
-    if (session) {
+    console.log("Session value before redirect:", session);
+    if (session && typeof session === "object" && session.id) {
       router.push("/payments");
     }
   }, [session, router]);
@@ -97,6 +97,10 @@ export default function CheckoutPage() {
         console.log(data.newUser)
         
         setUserSession({ ...data.newUser, isOnline: true }, data.token);
+        setTimeout(() => {
+          console.log("Redirigiendo a payments");
+          router.push("/payments");
+        }, 1000);
       } else {
         setUserSession(
           { 
@@ -104,7 +108,7 @@ export default function CheckoutPage() {
             name: "", 
             lastname: "", 
             email: "", 
-            isOnline: true 
+            isOnline: false 
           },
           ""
         );
@@ -112,7 +116,6 @@ export default function CheckoutPage() {
 
       localStorage.setItem("totalPrice", total.toString());
       alert("Registro exitoso y pedido realizado");
-      router.push("/payments");
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
