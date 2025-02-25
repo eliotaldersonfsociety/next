@@ -88,8 +88,30 @@ export default function CheckoutPage() {
       const data: ApiResponse = await res.json();
       if (!res.ok) throw new Error(data.message || "Error en el registro");
 
-      // El token se almacena en una cookie httpOnly, por lo que aquí actualizamos la sesión marcando al usuario como online.
-      setUserSession({ isOnline: true }, ""); // Se pasa un segundo argumento (cadena vacía)
+      // Actualizar la sesión con los datos del usuario si se reciben
+      if (data.token && data.newUser) {
+        setUserSession(
+          { 
+            id: data.newUser.id, 
+            name: data.newUser.name, 
+            lastname: data.newUser.lastname, 
+            email: data.newUser.email, 
+            isOnline: true 
+          },
+          data.token
+        );
+      } else {
+        setUserSession(
+          { 
+            id: "", 
+            name: "", 
+            lastname: "", 
+            email: "", 
+            isOnline: true 
+          },
+          ""
+        );
+      }
 
       localStorage.setItem("totalPrice", total.toString());
       alert("Registro exitoso y pedido realizado");
