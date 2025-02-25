@@ -90,6 +90,8 @@ export default function CheckoutPage() {
 
       // Actualizar la sesión con los datos del usuario si se reciben
       if (data.token && data.newUser) {
+        setUserSession({ ...data.newUser, isOnline: true }, data.token);
+      } else {
         setUserSession(
           { 
             id: data.newUser.id, 
@@ -98,7 +100,7 @@ export default function CheckoutPage() {
             email: data.newUser.email, 
             isOnline: true 
           },
-          data.token
+          ""
         );
       } else {
         setUserSession(
