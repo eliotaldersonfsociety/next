@@ -68,6 +68,12 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (!name || !lastname || !email || !password || !direction || !postalcode) {
+      setError("Por favor, completa todos los campos");
+      return;
+    }
+
+
     const userData: UserData = {
       name,
       lastname,
