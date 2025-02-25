@@ -85,10 +85,13 @@ export default function CheckoutPage() {
         credentials: "include", // Incluye las cookies en la petición
         body: JSON.stringify(userData),
       });
-
+      
+      if (!res.ok) {
+        const data: ApiResponse = await res.json();
+        throw new Error(data.message || "Error en el registro");
+      }
       const data: ApiResponse = await res.json();
-      if (!res.ok) throw new Error(data.message || "Error en el registro");
-
+      
       // Actualizar la sesión con los datos del usuario si se reciben
       if (data.token && data.newUser) {
         localStorage.setItem("token", data.token);
