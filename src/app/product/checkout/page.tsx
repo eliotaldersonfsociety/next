@@ -81,7 +81,6 @@ export default function CheckoutPage() {
     try {
       const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/register", {
         method: "POST",
-        mode: 'no-cors',  // Not ideal for production
         headers: { "Content-Type": "application/json" },
         credentials: "include", // Incluye las cookies en la petición
         body: JSON.stringify(userData),
