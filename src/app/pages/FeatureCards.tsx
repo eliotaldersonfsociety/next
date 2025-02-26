@@ -46,7 +46,9 @@ export default function FeatureCards() {
               <card.icon className="w-12 h-12 text-blue-600 mb-4" />
               <h2 className="text-xl font-semibold mb-2">{card.title}</h2>
               <p className="text-gray-600 mb-4">{card.description}</p>
-              <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-semibold transition-colors">
+              <button className="mt-auto bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-semibold transition-colors"
+                 onClick={() => card.path && router.push(card.path)} // Redirigir si tiene path
+              >
                 {card.buttonText}
               </button>
             </div>
