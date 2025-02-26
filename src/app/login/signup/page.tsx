@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -40,14 +41,15 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                     </div>
                   </div>
 
-                  <div className="grid gap-2">
-                    <Label htmlFor="direction">Dirección</Label>
-                    <Input id="direction" type="text" placeholder="Calle Principal 123" required />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="postalcode">Código Postal</Label>
-                    <Input id="postalcode" type="text" placeholder="28001" required />
+                  <div className="grid grid-cols-4 gap-4">
+                    <div className="col-span-3 grid gap-2">
+                      <Label htmlFor="direction">Dirección</Label>
+                      <Input id="direction" type="text" placeholder="Calle Principal 123" required />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="postalcode">Postal</Label>
+                      <Input id="postalcode" type="text" placeholder="28001" required />
+                    </div>
                   </div>
                 </>
               )}
@@ -57,22 +59,26 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                 <Input id="email" type="email" placeholder="m@example.com" required />
               </div>
 
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  {isLogin && (
+              {!isLogin ? (
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input id="password" type="password" required />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Input id="confirmPassword" type="password" required />
+                  </div>
+                </div>
+              ) : (
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
                     <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
                       Forgot your password?
                     </a>
-                  )}
-                </div>
-                <Input id="password" type="password" required />
-              </div>
-
-              {!isLogin && (
-                <div className="grid gap-2">
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
-                  <Input id="confirmPassword" type="password" required />
+                  </div>
+                  <Input id="password" type="password" required />
                 </div>
               )}
 
@@ -123,10 +129,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
             </div>
           </form>
           <div className="relative hidden bg-muted md:block">
-            <img
+            <Image
               src="/placeholder.svg"
               alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              layout="fill"
+              objectFit="cover"
+              className="dark:brightness-[0.2] dark:grayscale"
             />
           </div>
         </CardContent>
