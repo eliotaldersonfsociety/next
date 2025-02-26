@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSession } from "@/context/sessionContext"; // Importa el hook para usar el contexto de sesión
+import { useSession } from "../../pages/context/SessionContext"; // Importa el hook para usar el contexto de sesión
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
