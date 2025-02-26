@@ -11,9 +11,56 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const [isLogin, setIsLogin] = useState(true)
+  const router = useRouter();
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+    direction: "",
+    postalcode: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const toggleView = () => setIsLogin(!isLogin)
+  const toggleView = () => {
+    setIsLogin(!isLogin);
+    setError("");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const endpoint = isLogin ? "/api/v1/user/login" : "/api/v1/user/register";
+    const payload = isLogin
+      ? { email: formData.email, password: formData.password }
+      : formData;
+
+    try {
+      const res = await fetch(`https://aaa-eight-beta.vercel.app/${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Error en la autenticación");
+
+      localStorage.setItem("token", data.token);
+      router.push("/dashboard"); // Redirigir después del login
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
