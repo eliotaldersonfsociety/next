@@ -8,8 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSession } from "../../pages/context/SessionContext"; // Importa el hook para usar el contexto de sesión
-import Header from "../../pages/Header";
-import Footer from "../../pages/footer";
+
 
 interface LoginFormProps extends React.HTMLProps<HTMLDivElement> {
   className?: string;
