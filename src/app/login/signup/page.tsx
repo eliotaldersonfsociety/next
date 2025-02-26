@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -12,7 +10,11 @@ import { useSession } from "../../pages/context/SessionContext"; // Importa el h
 import Header from "../../pages/Header";
 import Footer from "../../pages/footer";
 
-export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+interface LoginFormProps extends React.HTMLProps<HTMLDivElement> {
+  className?: string;
+}
+
+export function LoginForm({ className, ...props }: LoginFormProps) {
   const router = useRouter();
   const { setUserSession } = useSession(); // Obtén la función para actualizar la sesión
   const [isLogin, setIsLogin] = useState(true);
@@ -88,107 +90,105 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
   };
 
   return (
-    
-      <div className={cn("flex flex-col items-center justify-center py-12 min-h-screen", className)} {...props}>
-        <Card className="overflow-hidden max-w-lg w-full">
-          <CardContent className="grid p-0 md:grid-cols-2">
-            <form className="p-6 md:p-8" onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col items-center text-center">
-                  <h1 className="text-2xl font-bold">{isLogin ? "Welcome back" : "Create an account"}</h1>
-                  <p className="text-balance text-muted-foreground">
-                    {isLogin ? "Login to your Acme Inc account" : "Sign up for an Acme Inc account"}
-                  </p>
-                </div>
+    <div className={cn("flex flex-col items-center justify-center py-12 min-h-screen", className)} {...props}>
+      <Card className="overflow-hidden max-w-lg w-full">
+        <CardContent className="grid p-0 md:grid-cols-2">
+          <form className="p-6 md:p-8" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col items-center text-center">
+                <h1 className="text-2xl font-bold">{isLogin ? "Welcome back" : "Create an account"}</h1>
+                <p className="text-balance text-muted-foreground">
+                  {isLogin ? "Login to your Acme Inc account" : "Sign up for an Acme Inc account"}
+                </p>
+              </div>
 
-                {/* Formulario para registrar o loguearse */}
-                {!isLogin && (
-                  <>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="grid gap-2">
-                        <Label htmlFor="name">Nombre</Label>
-                        <Input id="name" type="text" placeholder="Juan" required onChange={handleChange} />
-                      </div>
-                      <div className="grid gap-2">
-                        <Label htmlFor="lastname">Apellido</Label>
-                        <Input id="lastname" type="text" placeholder="Pérez" required onChange={handleChange} />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-4 gap-4">
-                      <div className="col-span-3 grid gap-2">
-                        <Label htmlFor="direction">Dirección</Label>
-                        <Input id="direction" type="text" placeholder="Calle Principal 123" required onChange={handleChange} />
-                      </div>
-                      <div className="grid gap-2">
-                        <Label htmlFor="postalcode">Postal</Label>
-                        <Input id="postalcode" type="text" placeholder="28001" required onChange={handleChange} />
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                {/* Email */}
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="m@example.com" required onChange={handleChange} />
-                </div>
-
-                {/* Password y Confirmar Password */}
-                {!isLogin ? (
+              {/* Formulario para registrar o loguearse */}
+              {!isLogin && (
+                <>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="password">Password</Label>
-                      <Input id="password" type="password" required onChange={handleChange} />
+                      <Label htmlFor="name">Nombre</Label>
+                      <Input id="name" type="text" placeholder="Juan" required onChange={handleChange} />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="confirmPassword">Confirm Password</Label>
-                      <Input id="confirmPassword" type="password" required />
+                      <Label htmlFor="lastname">Apellido</Label>
+                      <Input id="lastname" type="text" placeholder="Pérez" required onChange={handleChange} />
                     </div>
                   </div>
-                ) : (
-                  <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password">Password</Label>
-                      <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                        Forgot your password?
-                      </a>
+
+                  <div className="grid grid-cols-4 gap-4">
+                    <div className="col-span-3 grid gap-2">
+                      <Label htmlFor="direction">Dirección</Label>
+                      <Input id="direction" type="text" placeholder="Calle Principal 123" required onChange={handleChange} />
                     </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="postalcode">Postal</Label>
+                      <Input id="postalcode" type="text" placeholder="28001" required onChange={handleChange} />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Email */}
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" placeholder="m@example.com" required onChange={handleChange} />
+              </div>
+
+              {/* Password y Confirmar Password */}
+              {!isLogin ? (
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="password">Password</Label>
                     <Input id="password" type="password" required onChange={handleChange} />
                   </div>
-                )}
-
-                {/* Error */}
-                {error && <p className="text-red-500 text-sm">{error}</p>}
-
-                {/* Botón de submit */}
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Processing..." : isLogin ? "Login" : "Sign Up"}
-                </Button>
-
-                {/* Switch entre login y signup */}
-                <div className="text-center text-sm">
-                  {isLogin ? "Don't have an account? " : "Already have an account? "}
-                  <button type="button" onClick={toggleView} className="underline underline-offset-4 hover:text-primary">
-                    {isLogin ? "Sign up" : "Login"}
-                  </button>
+                  <div className="grid gap-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Input id="confirmPassword" type="password" required />
+                  </div>
                 </div>
-              </div>
-            </form>
+              ) : (
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
+                    <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
+                      Forgot your password?
+                    </a>
+                  </div>
+                  <Input id="password" type="password" required onChange={handleChange} />
+                </div>
+              )}
 
-            {/* Imagen al lado derecho del formulario (en dispositivos grandes) */}
-            <div className="relative hidden bg-muted md:block">
-              <Image
-                src="/port.png"
-                alt="Image"
-                layout="fill"
-                objectFit="cover"
-                className="dark:brightness-[0.2] dark:grayscale"
-              />
+              {/* Error */}
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+
+              {/* Botón de submit */}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Processing..." : isLogin ? "Login" : "Sign Up"}
+              </Button>
+
+              {/* Switch entre login y signup */}
+              <div className="text-center text-sm">
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
+                <button type="button" onClick={toggleView} className="underline underline-offset-4 hover:text-primary">
+                  {isLogin ? "Sign up" : "Login"}
+                </button>
+              </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+          </form>
+
+          {/* Imagen al lado derecho del formulario (en dispositivos grandes) */}
+          <div className="relative hidden bg-muted md:block">
+            <Image
+              src="/port.png"
+              alt="Image"
+              layout="fill"
+              objectFit="cover"
+              className="dark:brightness-[0.2] dark:grayscale"
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
