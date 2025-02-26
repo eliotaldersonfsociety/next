@@ -1,4 +1,4 @@
-import { LoginForm } from "./signup/page";
+import LoginForm from "./signup/page";
 import Header from "../pages/Header";
 import Footer from "../pages/footer";
 
