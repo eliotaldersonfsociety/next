@@ -1,3 +1,8 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -5,6 +10,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+  const [isLogin, setIsLogin] = useState(true)
+
+  const toggleView = () => setIsLogin(!isLogin)
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
@@ -12,28 +21,69 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
           <form className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-balance text-muted-foreground">Login to your Acme Inc account</p>
+                <h1 className="text-2xl font-bold">{isLogin ? "Welcome back" : "Create an account"}</h1>
+                <p className="text-balance text-muted-foreground">
+                  {isLogin ? "Login to your Acme Inc account" : "Sign up for an Acme Inc account"}
+                </p>
               </div>
+
+              {!isLogin && (
+                <>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="grid gap-2">
+                      <Label htmlFor="name">Nombre</Label>
+                      <Input id="name" type="text" placeholder="Juan" required />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="lastname">Apellido</Label>
+                      <Input id="lastname" type="text" placeholder="Pérez" required />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="direction">Dirección</Label>
+                    <Input id="direction" type="text" placeholder="Calle Principal 123" required />
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="postalcode">Código Postal</Label>
+                    <Input id="postalcode" type="text" placeholder="28001" required />
+                  </div>
+                </>
+              )}
+
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="m@example.com" required />
               </div>
+
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                    Forgot your password?
-                  </a>
+                  {isLogin && (
+                    <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
+                      Forgot your password?
+                    </a>
+                  )}
                 </div>
                 <Input id="password" type="password" required />
               </div>
+
+              {!isLogin && (
+                <div className="grid gap-2">
+                  <Label htmlFor="confirmPassword">Confirm Password</Label>
+                  <Input id="confirmPassword" type="password" required />
+                </div>
+              )}
+
               <Button type="submit" className="w-full">
-                Login
+                {isLogin ? "Login" : "Sign Up"}
               </Button>
+
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">Or continue with</span>
               </div>
+
               <div className="grid grid-cols-3 gap-4">
                 <Button variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -42,7 +92,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="sr-only">Login with Apple</span>
+                  <span className="sr-only">{isLogin ? "Login" : "Sign up"} with Apple</span>
                 </Button>
                 <Button variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -51,7 +101,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="sr-only">Login with Google</span>
+                  <span className="sr-only">{isLogin ? "Login" : "Sign up"} with Google</span>
                 </Button>
                 <Button variant="outline" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -60,14 +110,15 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="sr-only">Login with Meta</span>
+                  <span className="sr-only">{isLogin ? "Login" : "Sign up"} with Meta</span>
                 </Button>
               </div>
+
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
+                <button type="button" onClick={toggleView} className="underline underline-offset-4 hover:text-primary">
+                  {isLogin ? "Sign up" : "Login"}
+                </button>
               </div>
             </div>
           </form>
