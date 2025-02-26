@@ -1,3 +1,5 @@
+"use client"; // Asegúrate de que se ejecute en el cliente
+import { useRouter } from "next/navigation";
 import { UserPlus, FootprintsIcon as Shoe, Smartphone, Grid, Package } from 'lucide-react'
 
 const cards = [
@@ -6,6 +8,7 @@ const cards = [
     icon: UserPlus,
     description: 'Disfruta de ofertas y compra sin límites',
     buttonText: 'Ingresa tu cuenta',
+    path: "/login", 
   },
   {
     title: 'Zapatos',
