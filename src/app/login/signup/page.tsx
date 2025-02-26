@@ -43,7 +43,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       : formData;
 
     try {
-      const res = await fetch(`https://aaa-eight-beta.vercel.app/${endpoint}`, {
+      const res = await fetch(`https://aaa-eight-beta.vercel.app${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
