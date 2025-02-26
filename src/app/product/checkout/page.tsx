@@ -60,79 +60,71 @@ export default function CheckoutPage() {
   }, [session, router]);
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError("");
+  event.preventDefault();
+  setError("");
 
-    if (password !== repassword) {
-      setError("Las contraseñas no coinciden");
-      return;
-    }
+  if (password !== repassword) {
+    setError("Las contraseñas no coinciden");
+    return;
+  }
 
-    if (!name || !lastname || !email || !password || !direction || !postalcode) {
-      setError("Por favor, completa todos los campos");
-      return;
-    }
+  if (!name || !lastname || !email || !password || !direction || !postalcode) {
+    setError("Por favor, completa todos los campos");
+    return;
+  }
 
-
-    const userData: UserData = {
-      name,
-      lastname,
-      email,
-      password,
-      repassword,
-      direction,
-      postalcode,
-    };
-
-    try {
-      const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // Incluye las cookies en la petición
-        body: JSON.stringify(userData),
-      });
-      
-      if (!res.ok) {
-        const data: ApiResponse = await res.json();
-        throw new Error(data.message || "Error en el registro");
-      }
-      const data: ApiResponse = await res.json();
-      
-      // Actualizar la sesión con los datos del usuario si se reciben
-      if (data.token && data.newUser) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.newUser));
-        console.log(data.token)
-        console.log(data.newUser)
-        
-        setUserSession({ ...data.newUser, isOnline: true }, data.token);
-        setTimeout(() => {
-          console.log("Redirigiendo a payments");
-          router.push("/payments");
-        }, 1000);
-      } else {
-        setUserSession(
-          { 
-            id: "", 
-            name: "", 
-            lastname: "", 
-            email: "", 
-            isOnline: false 
-          },
-          ""
-        );
-      }
-
-      localStorage.setItem("totalPrice", total.toString());
-      alert("Registro exitoso y pedido realizado");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("An unknown error occurred");
-      }
-    }
+  const userData: UserData = {
+    name,
+    lastname,
+    email,
+    password,
+    repassword,
+    direction,
+    postalcode,
   };
+
+  try {
+    const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // Incluye las cookies en la petición
+      body: JSON.stringify(userData),
+    });
+
+    if (!res.ok) {
+      const data: ApiResponse = await res.json();
+      throw new Error(data.message || "Error en el registro");
+    }
+
+    const data: ApiResponse = await res.json();
+
+    // Verifica que `data.newUser` y `data.token` estén presentes
+    if (!data.newUser || !data.token) {
+      throw new Error("Datos de usuario o token no recibidos");
+    }
+
+    // Actualizar la sesión con los datos del usuario si se reciben
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.newUser));
+    console.log(data.token);
+    console.log(data.newUser);
+
+    setUserSession({ ...data.newUser, isOnline: true }, data.token);
+    setTimeout(() => {
+      console.log("Redirigiendo a payments");
+      router.push("/payments");
+    }, 1000);
+
+    localStorage.setItem("totalPrice", total.toString());
+    alert("Registro exitoso y pedido realizado");
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      setError(error.message);
+    } else {
+      setError("An unknown error occurred");
+    }
+  }
+};
 
   return (
     <div>
