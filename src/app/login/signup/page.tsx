@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useSession } from "../../pages/context/SessionContext"; // Importa el hook para usar el contexto de sesión
+import Header from "../../pages/Header";
+import Footer from "../../pages/footer";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
@@ -86,6 +88,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
   };
 
   return (
+  <>
+    <Header />  
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
@@ -181,5 +185,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         By clicking continue, you agree to our <a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a>.
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
