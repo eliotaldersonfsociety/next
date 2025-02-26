@@ -168,7 +168,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
           </form>
           <div className="relative hidden bg-muted md:block">
             <Image
-              src="/placeholder.svg"
+              src="/port.png"
               alt="Image"
               layout="fill"
               objectFit="cover"
