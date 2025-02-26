@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSession } from "../../pages/context/SessionContext"; // Importa el hook para usar el contexto de sesión
+import { useSession } from "@/context/sessionContext"; // Importa el hook para usar el contexto de sesión
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
@@ -54,24 +54,30 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Error en la autenticación");
 
-      // Si el login es exitoso, actualizamos la sesión en el contexto
-      const userSession = {
-        id: data.user.id,
-        name: data.user.name,
-        lastname: data.user.lastname,
-        email: data.user.email,
-        isOnline: true, // Aquí puedes ajustar según la respuesta de tu API
-        isAdmin: data.user.isAdmin,
-        avatar: data.user.avatar, // Si el usuario tiene avatar
-      };
+      // Si es login, actualizamos la sesión
+      if (isLogin) {
+        const userSession = {
+          id: data.user.id,
+          name: data.user.name,
+          lastname: data.user.lastname,
+          email: data.user.email,
+          isOnline: true,
+          isAdmin: data.user.isAdmin,
+          avatar: data.user.avatar,
+        };
 
-      setUserSession(userSession, data.token); // Actualizamos la sesión con el token
+        setUserSession(userSession, data.token); // Actualizamos la sesión con el token
 
-      // Guardamos el token en localStorage o cookies
-      localStorage.setItem("token", data.token);
+        // Guardamos el token en localStorage o cookies
+        localStorage.setItem("token", data.token);
 
-      // Redirigimos al dashboard
-      router.push("/dashboard");
+        // Redirigimos al dashboard
+        router.push("/dashboard");
+      } else {
+        // Si es un registro exitoso, redirigimos al login
+        setIsLogin(true); // Cambiamos la vista a login
+        router.push("/login"); // Redirigimos a la página de login
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
