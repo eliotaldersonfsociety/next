@@ -37,6 +37,7 @@ const cards = [
 ]
 
 export default function FeatureCards() {
+  const router = useRouter();
   return (
     <div className="bg-gray-200 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,4 +59,3 @@ export default function FeatureCards() {
     </div>
   )
 }
-
