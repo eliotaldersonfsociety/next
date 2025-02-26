@@ -88,11 +88,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
   };
 
   return (
-    <>
-      {/* Header fuera de la caja */}
-      <Header />
-      
-      {/* Contenedor principal para que el formulario esté centrado y no ocupe toda la pantalla */}
+    
       <div className={cn("flex flex-col items-center justify-center py-12 min-h-screen", className)} {...props}>
         <Card className="overflow-hidden max-w-lg w-full">
           <CardContent className="grid p-0 md:grid-cols-2">
@@ -192,14 +188,6 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
             </div>
           </CardContent>
         </Card>
-
-        {/* Footer fuera de la caja */}
-        <Footer />
-
-        {/* Términos y condiciones */}
-        <div className="text-center text-xs text-muted-foreground">
-          By clicking continue, you agree to our <a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a>.
-        </div>
       </div>
     </>
   );
