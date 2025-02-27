@@ -98,7 +98,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">{isLogin ? "Welcome back" : "Create an account"}</h1>
                 <p className="text-balance text-muted-foreground">
-                  {isLogin ? "Login to your Acme Inc account" : "Sign up for an Acme Inc account"}
+                  {isLogin ? "Login to your Texas Store account" : "Sign up for Texas Store"}
                 </p>
               </div>
 
