@@ -157,9 +157,19 @@ export default function Header() {
                           <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id)}>Eliminar</Button>
                         </div>
                        ))}
-                        <Button className="mt-4 w-full bg-blue-600 text-white" onClick={() => router.push('/payments')}>
-                          Ir a Pagar
-                        </Button>
+                        <Button
+                        className="mt-4 w-full bg-blue-600 text-white"
+                        onClick={() => {
+                          if (session?.isOnline) {
+                            router.push('/payments'); // Si está logueado, va a pagos
+                          } else {
+                            router.push('/login'); // Si no está logueado, va a login
+                          }
+                        }}
+                      >
+                        Ir a Pagar
+                      </Button>
+
                       </>
                     )}
                   </SheetDescription>
