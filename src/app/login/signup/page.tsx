@@ -172,7 +172,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
               {/* Aquí se agrega el reCAPTCHA */}
               <div className="mt-4">
                 <ReCAPTCHA
-                  sitekey="6LfU7eMqAAAAAF6e6in0L2NAImWs7OigolqF4bJy"
+                  sitekey="6LeH-eMqAAAAAPKYq_dtoyDrNcuAath4MvgTa1_a"
                   onChange={handleCaptcha}
                 />
               </div>
