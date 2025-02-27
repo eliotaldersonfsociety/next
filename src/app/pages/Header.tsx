@@ -33,7 +33,7 @@ export default function Header() {
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null); 
   const router = useRouter();
 
-  const RECAPTCHA_SITE_KEY = "TU_CLAVE_DE_SITIO_AQUI";
+  const RECAPTCHA_SITE_KEY = "6LeH-eMqAAAAAPKYq_dtoyDrNcuAath4MvgTa1_a";
 
   interface LoginResponse {
     token: string;
