@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSession } from "../../pages/context/SessionContext"; // Importa el hook para usar el contexto de sesión
+import { useSession } from "../../pages/context/SessionContext"; 
+import ReCAPTCHA from "react-google-recaptcha"; // Importar ReCAPTCHA
+
 
 
 interface LoginFormProps extends React.HTMLProps<HTMLDivElement> {
@@ -155,6 +157,14 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
                   <Input id="password" type="password" required onChange={handleChange} />
                 </div>
               )}
+
+              {/* Aquí se agrega el reCAPTCHA */}
+              <div className="mt-4">
+                <ReCAPTCHA
+                  sitekey="6LfU7eMqAAAAAF6e6in0L2NAImWs7OigolqF4bJy"
+                  onChange={handleCaptcha}
+                />
+              </div>
 
               {/* Error */}
               {error && <p className="text-red-500 text-sm">{error}</p>}
