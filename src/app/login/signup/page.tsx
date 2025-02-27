@@ -91,6 +91,11 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     }
   };
 
+    // Función para manejar el evento onChange del reCAPTCHA
+  const handleCaptcha = (value: string | null) => {
+    setCaptchaValue(value); // Actualiza el valor del captcha
+  };
+
   return (
     <div className={cn("flex flex-col items-center justify-center py-12 min-h-screen", className)} {...props}>
       <Card className="overflow-hidden max-w-2xl w-full">
