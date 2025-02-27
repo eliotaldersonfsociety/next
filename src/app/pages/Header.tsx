@@ -148,7 +148,7 @@ export default function Header() {
                       <p>Tu carrito está vacío.</p>
                     ) : (
                       <>
-                      cart.map((item) => (
+                        {cart.map((item) => (
                         <div key={item.id} className="flex items-center justify-between py-2">
                           <p>{item.name} - ${item.price.toFixed(2)}</p>
                           <Button variant="outline" size="sm" onClick={() => decreaseQuantity(item.id)}>-</Button>
