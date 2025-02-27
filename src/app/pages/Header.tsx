@@ -30,7 +30,10 @@ export default function Header() {
   const { session, clearUserSession, setUserSession, sessionLoading } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null); 
   const router = useRouter();
+
+  const RECAPTCHA_SITE_KEY = "TU_CLAVE_DE_SITIO_AQUI";
 
   interface LoginResponse {
     token: string;
@@ -45,6 +48,12 @@ export default function Header() {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+
+    if (!recaptchaToken) {
+      alert("Por favor, verifica que no eres un robot.");
+      return;
+    }
+    
     try {
       const response = await fetch('https://aaa-eight-beta.vercel.app/api/v1/user/login', {
         method: 'POST',
@@ -214,6 +223,13 @@ export default function Header() {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                     />
+
+                    <ReCAPTCHA
+                      sitekey={RECAPTCHA_SITE_KEY}
+                      onChange={(token) => setRecaptchaToken(token)}
+                      onExpired={() => setRecaptchaToken(null)}
+                    />
+                    
                     <Button type="submit" className="w-full">Iniciar sesión</Button>
                   </form>
                 )}
