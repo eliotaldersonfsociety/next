@@ -10,8 +10,6 @@ import { Label } from "@/components/ui/label";
 import { useSession } from "../../pages/context/SessionContext"; 
 import ReCAPTCHA from "react-google-recaptcha"; // Importar ReCAPTCHA
 
-
-
 interface LoginFormProps extends React.HTMLProps<HTMLDivElement> {
   className?: string;
 }
@@ -20,6 +18,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
   const router = useRouter();
   const { setUserSession } = useSession(); // Obtén la función para actualizar la sesión
   const [isLogin, setIsLogin] = useState(true);
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null); // Asegúrate de declarar el estado
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
@@ -44,6 +43,13 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    // Verificar si el captcha está completado
+    if (!captchaValue) {
+      setError("Please complete the CAPTCHA.");
+      setLoading(false);
+      return;
+    }
 
     const endpoint = isLogin ? "/api/v1/user/login" : "/api/v1/user/register";
     const payload = isLogin
@@ -91,7 +97,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
     }
   };
 
-    // Función para manejar el evento onChange del reCAPTCHA
+  // Función para manejar el evento onChange del reCAPTCHA
   const handleCaptcha = (value: string | null) => {
     setCaptchaValue(value); // Actualiza el valor del captcha
   };
