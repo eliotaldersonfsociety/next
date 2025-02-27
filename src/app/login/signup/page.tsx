@@ -53,8 +53,8 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
 
     const endpoint = isLogin ? "/api/v1/user/login" : "/api/v1/user/register";
     const payload = isLogin
-      ? { email: formData.email, password: formData.password }
-      : formData;
+      ? { email: formData.email, password: formData.password, recaptchaToken: captchaValue }
+      : { ...formData; recaptchaToken: captchaValue };
 
     try {
       const res = await fetch(`https://aaa-eight-beta.vercel.app${endpoint}`, {
