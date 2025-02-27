@@ -91,7 +91,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
 
   return (
     <div className={cn("flex flex-col items-center justify-center py-12 min-h-screen", className)} {...props}>
-      <Card className="overflow-hidden max-w-lg w-full">
+      <Card className="overflow-hidden max-w-2xl w-full">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form className="p-6 md:p-8" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
