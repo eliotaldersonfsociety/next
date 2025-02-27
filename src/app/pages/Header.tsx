@@ -147,6 +147,7 @@ export default function Header() {
                     {cart.length === 0 ? (
                       <p>Tu carrito está vacío.</p>
                     ) : (
+                      <>
                       cart.map((item) => (
                         <div key={item.id} className="flex items-center justify-between py-2">
                           <p>{item.name} - ${item.price.toFixed(2)}</p>
@@ -155,7 +156,11 @@ export default function Header() {
                           <Button variant="outline" size="sm" onClick={() => increaseQuantity(item.id)}>+</Button>
                           <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id)}>Eliminar</Button>
                         </div>
-                      ))
+                       ))}
+                        <Button className="mt-4 w-full bg-blue-600 text-white" onClick={() => router.push('/payments')}>
+                          Ir a Pagar
+                        </Button>
+                      </>
                     )}
                   </SheetDescription>
                 </SheetHeader>
