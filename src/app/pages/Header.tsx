@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ShoppingCart, User } from 'lucide-react';
 import { useCart } from '../pages/context/CartContext';
 import { useSession } from '../pages/context/SessionContext';
+import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
