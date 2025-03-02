@@ -92,7 +92,7 @@ export default function HomePage() {
   }, [products]);
 
   return (
-  <div className="bg-gray-200 min-h-screen w-full">
+  <div className="bg-gray-200 w-full">
     <div className="w-full max-w-7xl mx-auto px-4 py-8 bg-gray-200">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">Ofertas del Día</h2>
