@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useCart } from "@/context/CartContext"; // Importa el contexto
+import { useCart } from "./context/CartContext"; // Importa el contexto
 
 
 // API credentials
