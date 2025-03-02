@@ -43,7 +43,19 @@ export default function UserDashboardWithAvatar() {
   const [users, setUsers] = useState<User[]>([]);
   const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
   const [mostRecentPurchase, setMostRecentPurchase] = useState<PurchasedProduct | null>(null); // Estado para la compra más reciente
-  const [inputSaldo, setInputSaldo] = useState<{ [key: string]: number | string }>({}); // Estado para el input de saldo de cada usuario
+  const [inputSaldo, setInputSaldo] = useState<{ [key: string]: number | string }>({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
+
+    // Lógica de paginación para los usuarios
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage) || 1;
+
+  // Extraer los usuarios a mostrar en la página actual
+  const displayedUsers = filteredUsers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   // Paginación: 10 compras por página
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -429,6 +441,17 @@ export default function UserDashboardWithAvatar() {
           </CardContent>
         </Card>
 
+        {/* Filtro por email */}
+        <div className="mb-6 flex justify-between items-center">
+          <input
+            type="text"
+            placeholder="Buscar por email"
+            value={searchEmail}
+            onChange={(e) => setSearchEmail(e.target.value)}
+            className="border p-2 rounded"
+          />
+        </div>
+        
         {/* Tabla de Usuarios Registrados */}
         <Card className="mt-6">
           <CardHeader>
@@ -472,6 +495,20 @@ export default function UserDashboardWithAvatar() {
                 ))}
               </TableBody>
             </Table>
+            {/* Controles de paginación */}
+            {totalPages > 1 && (
+              <div className="flex justify-center space-x-2 mt-4">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(index + 1)}
+                    className={`px-3 py-1 border rounded ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"}`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
