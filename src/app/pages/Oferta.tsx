@@ -128,7 +128,7 @@ export default function HomePage() {
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {/* Fixed "Ofertas del día" card */}
-            <Card className="min-w-[200px] max-w-[200px] h-[350px] flex flex-col justify-center items-center snap-start bg-gradient-to-br from-primary/80 to-primary shadow-lg border-0">
+            <Card className="min-w-[200px] max-w-[200px] h-[380px] flex flex-col justify-center items-center snap-start bg-gradient-to-br from-primary/80 to-primary shadow-lg border-0">
               <CardContent className="flex flex-col items-center justify-center text-center p-6">
                 <h3 className="text-2xl font-bold text-primary-foreground mb-4">
                   Ofertas del Día
