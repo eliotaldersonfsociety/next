@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, CircleDollarSign } from 'lucide-react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import Footer from '../checkout/footer';
+import Oferts from '../../pages/Oferts'
 
 const ck = "ck_10f8bd17af5190cd0c2f0f17aaa8098a1cdf1f46";
 const cs = "cs_1a7d245efb14ac7d786712aeb568f2a11adddb73";
@@ -163,7 +164,7 @@ export default function ProductPage() {
             </Button>
           </div>
         </div>
-
+        <Oferts />
         <ProductDetails description={product.description} />
       </div>
       <Footer />
