@@ -424,6 +424,15 @@ export default function UserDashboardWithAvatar() {
           <CardHeader>
             <CardTitle>Usuarios Registrados</CardTitle>
           </CardHeader>
+          <div className="mb-6 flex justify-between items-center">
+          <input
+            type="text"
+            placeholder="Buscar por email"
+            value={searchEmail}
+            onChange={(e) => setSearchEmail(e.target.value)}
+            className="border p-2 rounded"
+          />
+        </div>
           <CardContent>
             <Table>
               <TableHeader>
