@@ -10,7 +10,7 @@ import PromoCards from './pages/PromoCards';
 import CategoryCards from './pages/CategoryCards';
 import ClipLoader from 'react-spinners/ClipLoader'; // Importamos el spinner
 import Footer from './pages/footer';
-import Oferts from './pages/Oferts'
+import Oferts from './pages/Oferts';
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
@@ -59,6 +59,7 @@ export default function Home() {
       <Header />
       <Hero />
       <FeatureCards />
+      <Oferts />
       <PromoCards />
       <CategoryCards />
 
