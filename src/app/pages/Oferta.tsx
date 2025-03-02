@@ -130,13 +130,13 @@ export default function HomePage() {
             {/* Fixed "Ofertas del día" card */}
             <Card className="min-w-[200px] max-w-[200px] h-[300px] flex flex-col justify-center items-center snap-start bg-gradient-to-br from-primary/80 to-primary shadow-lg border-0">
               <CardContent className="flex flex-col items-center justify-center text-center p-6">
-                <h3 className="text-3xl font-bold text-primary-foreground mb-4">
+                <h3 className="text-2xl font-bold text-primary-foreground mb-4">
                   Ofertas del Día
                 </h3>
                 <p className="text-primary-foreground/90 mb-6">
                   Descubre nuestras mejores promociones con descuentos increíbles
                 </p>
-                <Badge variant="secondary" className="text-lg py-1 px-4">
+                <Badge variant="secondary" className="text-md py-1 px-4">
                   Hasta 40% OFF
                 </Badge>
               </CardContent>
@@ -146,7 +146,7 @@ export default function HomePage() {
             {products.map((product) => (
               <Card
                 key={product.id}
-                className="min-w-[280px] max-w-[280px] snap-start hover:shadow-md transition-shadow duration-300"
+                className="min-w-[200px] max-w-[200px] snap-start hover:shadow-md transition-shadow duration-300"
               >
                 <CardContent className="p-4">
                   <div className="relative">
