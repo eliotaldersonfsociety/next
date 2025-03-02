@@ -118,6 +118,7 @@ export default function UserDashboardWithAvatar() {
         }
         const data = await res.json();
         setSaldo(data.saldo);
+        console.log("Datos obtenidos:", data);
       } catch (error) {
         console.error("Error al obtener el saldo:", error);
         toast.error("Error al obtener el saldo");
