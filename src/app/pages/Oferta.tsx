@@ -6,6 +6,8 @@ import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useCart } from "@/context/CartContext"; // Importa el contexto
+
 
 // API credentials
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
@@ -21,6 +23,7 @@ interface Product {
 }
 
 export default function HomePage() {
+  const { addToCart } = useCart(); // Accede a la función addToCart desde el contexto
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
@@ -56,6 +59,19 @@ export default function HomePage() {
 
     fetchProducts();
   }, []);
+
+    // Maneja la acción de agregar un producto al carrito
+  const handleAddToCart = (product: Product) => {
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      price: parseFloat(product.sale_price || product.price), // Usar el precio de descuento o el precio regular
+      quantity: 1,
+      image: product.images[0]?.src,
+    };
+
+    addToCart(cartItem); // Llamamos a addToCart del contexto
+  };
 
   // Handle scroll navigation
   const scroll = useCallback(
@@ -179,7 +195,7 @@ export default function HomePage() {
                     )}
                   </div>
                 </CardContent>
-                <CardFooter className="p-4 pt-0">
+                <CardFooter className="p-4 pt-0" onClick={() => handleAddToCart(product)}>
                   <Button className="w-full gap-2">
                     <ShoppingCart className="h-4 w-4" />
                     Añadir al carrito
