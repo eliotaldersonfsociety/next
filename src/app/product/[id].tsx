@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, CircleDollarSign } from 'lucide-react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { toast } from 'react-hot-toast';
+import Oferts from '../pages/Oferts';
 
 type Product = {
   id: string;
@@ -148,6 +149,7 @@ export default function ProductPage() {
               <CircleDollarSign className="mr-2 h-4 w-4" /> Comprar Ahora
             </Button>
           </div>
+          <Oferts />
         </div>
 
         <ProductDetails description={product.description} />
