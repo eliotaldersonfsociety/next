@@ -42,26 +42,28 @@ export default function UserDashboardWithAvatar() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
   const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
-  const [mostRecentPurchase, setMostRecentPurchase] = useState<PurchasedProduct | null>(null); // Estado para la compra más reciente
+  const [mostRecentPurchase, setMostRecentPurchase] = useState<PurchasedProduct | null>(null);
   const [inputSaldo, setInputSaldo] = useState<{ [key: string]: number | string }>({});
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchEmail, setSearchEmail] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
 
-    // Lógica de paginación para los usuarios
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage) || 1;
+  const filteredUsers = users.filter((user) =>
+    user.email.toLowerCase().includes(searchEmail.toLowerCase())
+  );
 
-  // Extraer los usuarios a mostrar en la página actual
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage) || 1;
   const displayedUsers = filteredUsers.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  // Paginación: 10 compras por página
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 10;
+  const totalPurchasePages = Math.ceil(purchasedProducts.length / itemsPerPage) || 1;
+  const displayedPurchases = purchasedProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-  // Alterna el ícono cada 3 segundos (solo visual)
   useEffect(() => {
     const interval = setInterval(() => {
       setShowDollarIcon((prev) => !prev);
@@ -69,7 +71,6 @@ export default function UserDashboardWithAvatar() {
     return () => clearInterval(interval);
   }, []);
 
-  // Verifica la sesión y redirige si no hay usuario autenticado
   useEffect(() => {
     if (!sessionLoading) {
       if (!session || !session.isOnline) {
@@ -80,7 +81,6 @@ export default function UserDashboardWithAvatar() {
     }
   }, [session, sessionLoading, router]);
 
-  // Función auxiliar para parsear los items (en caso de que vengan como cadena JSON)
   const getParsedItems = (
     rawItems: string | { name: string; image: string }[]
   ): { name: string; image: string }[] => {
@@ -98,7 +98,6 @@ export default function UserDashboardWithAvatar() {
     }
   };
 
-  // Obtener saldo desde la API usando el token del contexto
   useEffect(() => {
     const fetchSaldo = async () => {
       if (!token) {
@@ -107,20 +106,17 @@ export default function UserDashboardWithAvatar() {
         return;
       }
       try {
-        console.log("Token que se está enviando:", token); // Verificar el valor del token
         const res = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/saldo", {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("Respuesta del servidor:", res.status, res.statusText);
         if (!res.ok) {
           const errorText = await res.text();
           console.error(`Error al obtener el saldo: ${res.status} - ${res.statusText}`, errorText);
           throw new Error(`No se pudo obtener el saldo: ${res.status} - ${res.statusText}`);
         }
         const data = await res.json();
-        console.log("Saldo obtenido:", data.saldo);
         setSaldo(data.saldo);
       } catch (error) {
         console.error("Error al obtener el saldo:", error);
@@ -132,7 +128,6 @@ export default function UserDashboardWithAvatar() {
     }
   }, [token]);
 
-  // Obtener compras del usuario (endpoint protegido)
   useEffect(() => {
     const fetchPurchases = async () => {
       try {
@@ -147,10 +142,8 @@ export default function UserDashboardWithAvatar() {
         }
         if (!response.ok) throw new Error("Failed to fetch purchases");
         const data = await response.json();
-        console.log("Fetched purchases:", data.purchases); // Verifica los datos recibidos
         setPurchasedProducts(data.purchases || []);
-        setMostRecentPurchase(data.purchases[0] || null); // Aquí se establece la compra más reciente
-
+        setMostRecentPurchase(data.purchases[0] || null);
       } catch (error) {
         console.error("Error fetching purchases:", error);
       }
@@ -160,7 +153,6 @@ export default function UserDashboardWithAvatar() {
     }
   }, [session, token, router, clearUserSession]);
 
-  // Obtener todos los usuarios registrados
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -180,23 +172,12 @@ export default function UserDashboardWithAvatar() {
     }
   }, [session, token]);
 
-  // Paginación: calcular número total de páginas
-  const totalPages = Math.ceil(purchasedProducts.length / itemsPerPage) || 1;
-
-  // Si la página actual es mayor que el total de páginas, reajustarla
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
   }, [currentPage, totalPages]);
 
-  // Extraer las compras a mostrar en la página actual
-  const displayedPurchases = purchasedProducts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  // Redirigir a WhatsApp para agregar saldo
   const redirectToWhatsApp = () => {
     const phoneNumber = "1234567890";
     const message = "Hola, quiero agregar saldo a mi cuenta.";
@@ -204,13 +185,11 @@ export default function UserDashboardWithAvatar() {
     window.open(url, "_blank");
   };
 
-  // Función para cerrar sesión
   const handleLogout = () => {
     clearUserSession();
     router.push("/");
   };
 
-  // Función para modificar el saldo de un usuario
   const updateUserSaldo = async (email: string, newSaldo: number) => {
     try {
       const response = await fetch("https://aaa-eight-beta.vercel.app/api/v1/user/updateSaldo", {
@@ -223,7 +202,6 @@ export default function UserDashboardWithAvatar() {
       });
       if (!response.ok) throw new Error("Failed to update saldo");
       const data = await response.json();
-      console.log("Datos obtenidos:", data); // Usa 'data' para algo
       setUsers((prevUsers) =>
         prevUsers.map((user) => (user.email === email ? { ...user, saldo: newSaldo } : user))
       );
@@ -234,23 +212,19 @@ export default function UserDashboardWithAvatar() {
     }
   };
 
-  // Maneja el cambio en el input para cada usuario
   const handleSaldoChange = (email: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const newSaldo = parseFloat(e.target.value);
     setInputSaldo((prev) => ({ ...prev, [email]: newSaldo }));
   };
 
-  // Esta función se encarga de llamar a updateUserSaldo y, una vez exitosa, limpia el input
   const handleRecargarSaldo = async (user: User) => {
     const saldoAIncrementar = Number(inputSaldo[user.email]) || 0;
     await updateUserSaldo(user.email, saldoAIncrementar);
-    // Limpia el input para ese usuario
     setInputSaldo((prev) => ({ ...prev, [user.email]: '' }));
     toast.success("Saldo actualizado con éxito");
     setTimeout(() => {
-      window.location.reload(); // Recarga la página para mostrar el nuevo saldo
+      window.location.reload();
     }, 2000);
-
   };
 
   if (loading) {
@@ -264,7 +238,6 @@ export default function UserDashboardWithAvatar() {
     <>
       <Header />
       <div className="container mx-auto p-6 lg:px-36">
-        {/* Componente para seleccionar avatar */}
         <AvatarSelector />
 
         <div className="flex justify-between items-center mb-6">
@@ -286,7 +259,6 @@ export default function UserDashboardWithAvatar() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-6">
-          {/* Tarjeta de estado de la cuenta */}
           <Card>
             <CardHeader>
               <CardTitle>Estado de la Cuenta</CardTitle>
@@ -297,7 +269,6 @@ export default function UserDashboardWithAvatar() {
             </CardContent>
           </Card>
 
-          {/* Tarjeta "Última Compra" que muestra la compra más reciente */}
           {mostRecentPurchase && (
             <Card>
               <CardHeader>
@@ -342,7 +313,6 @@ export default function UserDashboardWithAvatar() {
             </Card>
           )}
 
-          {/* Tarjeta de saldo */}
           <Card>
             <CardHeader>
               <CardTitle>Saldo</CardTitle>
@@ -353,7 +323,6 @@ export default function UserDashboardWithAvatar() {
           </Card>
         </div>
 
-        {/* Historial de Compras */}
         <Card>
           <CardHeader>
             <CardTitle>Historial de Compras</CardTitle>
@@ -372,7 +341,6 @@ export default function UserDashboardWithAvatar() {
                   displayedPurchases.map((purchase, index) => (
                     <TableRow
                       key={index}
-                      // En la primera página, la primera fila es la compra más reciente
                       className={index === 0 && currentPage === 1 ? "bg-green-100" : ""}
                     >
                       <TableCell>
@@ -422,10 +390,9 @@ export default function UserDashboardWithAvatar() {
                 )}
               </TableBody>
             </Table>
-            {/* Controles de paginación */}
-            {totalPages > 1 && (
+            {totalPurchasePages > 1 && (
               <div className="flex justify-center space-x-2 mt-4">
-                {Array.from({ length: totalPages }, (_, index) => (
+                {Array.from({ length: totalPurchasePages }, (_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
@@ -441,7 +408,6 @@ export default function UserDashboardWithAvatar() {
           </CardContent>
         </Card>
 
-        {/* Filtro por email */}
         <div className="mb-6 flex justify-between items-center">
           <input
             type="text"
@@ -451,8 +417,7 @@ export default function UserDashboardWithAvatar() {
             className="border p-2 rounded"
           />
         </div>
-        
-        {/* Tabla de Usuarios Registrados */}
+
         <Card className="mt-6">
           <CardHeader>
             <CardTitle>Usuarios Registrados</CardTitle>
@@ -467,7 +432,7 @@ export default function UserDashboardWithAvatar() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
+                {displayedUsers.map((user) => (
                   <TableRow key={user.email}>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>${user.saldo.toFixed(2)}</TableCell>
@@ -485,7 +450,6 @@ export default function UserDashboardWithAvatar() {
                       >
                         Recargar Saldo
                       </button>
-                      {/* Vista previa de la suma: saldo actual + nuevo valor ingresado */}
                       <div className="mt-2 text-sm text-gray-600">
                         Saldo final: $
                         {(user.saldo + (parseFloat(inputSaldo[user.email] as string) || 0)).toFixed(2)}
@@ -495,7 +459,6 @@ export default function UserDashboardWithAvatar() {
                 ))}
               </TableBody>
             </Table>
-            {/* Controles de paginación */}
             {totalPages > 1 && (
               <div className="flex justify-center space-x-2 mt-4">
                 {Array.from({ length: totalPages }, (_, index) => (
