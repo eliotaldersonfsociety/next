@@ -129,6 +129,7 @@ export default function UserDashboardWithAvatar() {
         }
         const data = await res.json();
         setSaldo(data.saldo);
+        console.log("Saldo obtenido:", data);
       } catch (error) {
         console.error("Error al obtener el saldo:", error);
         toast.error("Error al obtener el saldo");
@@ -212,7 +213,9 @@ export default function UserDashboardWithAvatar() {
         body: JSON.stringify({ email, saldo: newSaldo }),
       });
       if (!response.ok) throw new Error("Failed to update saldo");
-      const data = await response.json();
+      // Renombramos la variable a _data para evitar el error ESLint de variable no usada
+      const _data = await response.json();
+      console.log("Datos obtenidos:", _data);
       setUsers((prevUsers) =>
         prevUsers.map((user) => (user.email === email ? { ...user, saldo: newSaldo } : user))
       );
@@ -435,7 +438,7 @@ export default function UserDashboardWithAvatar() {
                 ))}
               </ul>
               {(() => {
-                // Se compara forzando la conversión a número (o string) para evitar problemas de tipo
+                // Comparamos forzando la conversión a número para evitar problemas de tipo
                 const userData = users.find(u => Number(u.id) === Number(selectedPurchase.user_id));
                 return userData ? (
                   <div className="mt-4">
@@ -515,9 +518,7 @@ export default function UserDashboardWithAvatar() {
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`px-3 py-1 border rounded ${
-                      currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"
-                    }`}
+                    className={`px-3 py-1 border rounded ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"}`}
                   >
                     {index + 1}
                   </button>
