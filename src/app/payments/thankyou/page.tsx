@@ -7,6 +7,14 @@ import { useSession } from '../../pages/context/SessionContext';
 import Header from '../../pages/Header';
 import Footer from '../../pages/footer';
 
+type PurchaseDetails = {
+  id: string;
+  amount: number;
+  date: string;
+  items: { name: string; price: number; quantity: number }[];
+};
+
+
 const ThankYouPage = () => {
   const router = useRouter();
   const { session, sessionLoading } = useSession();
