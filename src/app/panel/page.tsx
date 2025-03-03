@@ -482,7 +482,7 @@ export default function UserDashboardWithAvatar() {
                       </button>
                       <div className="mt-2 text-sm text-gray-600">
                         Saldo final: $
-                        {(user.saldo + (parseFloat(inputSaldo[user.email] as string) || 0).toFixed(2)}
+                        {(user.saldo + (parseFloat(inputSaldo[user.email] as string) || 0)).toFixed(2)}
                       </div>
                     </TableCell>
                   </TableRow>
