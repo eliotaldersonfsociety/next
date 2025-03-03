@@ -37,8 +37,6 @@ interface User {
   saldo: number;
 }
 
-//asi
-
 export default function UserDashboardWithAvatar() {
   const { session, token, clearUserSession, sessionLoading } = useSession();
   const router = useRouter();
