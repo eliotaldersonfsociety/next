@@ -34,9 +34,10 @@ interface PurchasedProduct {
   buyer: string;
 }
 
-// Interfaz para el usuario, se asume que la dirección se llama "direction"
+// Interfaz para el usuario. Se asume que la dirección se llama "direction" en la base de datos.
 interface User {
-  id: string | number;
+  id?: string | number; // Puede venir como "id" o "_id"
+  _id?: string | number;
   email: string;
   name: string;
   lastname: string;
@@ -409,7 +410,9 @@ export default function UserDashboardWithAvatar() {
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`px-3 py-1 border rounded ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"}`}
+                    className={`px-3 py-1 border rounded ${
+                      currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"
+                    }`}
                   >
                     {index + 1}
                   </button>
@@ -425,8 +428,10 @@ export default function UserDashboardWithAvatar() {
               <h2 className="text-xl font-bold mb-4">Detalles de la Compra</h2>
               <p><strong>ID:</strong> {selectedPurchase.id}</p>
               {(() => {
-                // Convertimos ambos valores a string para que la comparación funcione correctamente
-                const userData = users.find(u => String(u.id) === String(selectedPurchase.user_id));
+                // Buscamos el usuario comparando el user_id de la compra con el id o _id del usuario
+                const userData = users.find(
+                  (u) => String(u.id ?? u._id) === String(selectedPurchase.user_id)
+                );
                 const comprador = userData ? `${userData.name} ${userData.lastname}` : "No disponible";
                 const direccionCompra = userData ? userData.direction : "No disponible";
                 return (
@@ -444,7 +449,9 @@ export default function UserDashboardWithAvatar() {
                 ))}
               </ul>
               {(() => {
-                const userData = users.find(u => String(u.id) === String(selectedPurchase.user_id));
+                const userData = users.find(
+                  (u) => String(u.id ?? u._id) === String(selectedPurchase.user_id)
+                );
                 return userData ? (
                   <div className="mt-4">
                     <p><strong>Email:</strong> {userData.email}</p>
