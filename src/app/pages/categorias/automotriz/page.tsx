@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'; // Importar Image de next/image
 import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
+import Link from 'next/link'; // Importar Link desde next/link
 
 const ck = import.meta.env.VITE_API_KEY;
 const cs = import.meta.env.VITE_API_SECRET;
