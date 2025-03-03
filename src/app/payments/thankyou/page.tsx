@@ -12,7 +12,17 @@ type PurchaseDetails = {
   amount: number;
   date: string;
   items: { name: string; price: number; quantity: number }[];
+  total: number;
+  paymentMethod: string;
+  items: PurchaseItem[];
 };
+
+interface PurchaseItem {
+  image: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 
 const ThankYouPage = () => {
@@ -40,7 +50,7 @@ const ThankYouPage = () => {
 
   const handleRedirect = () => {
     if (session?.isAdmin) {
-      router.push('/admin-panel');
+      router.push('/panel');
     } else {
       router.push('/dashboard');
     }
