@@ -44,7 +44,7 @@ const ThankYouPage = () => {
 
   const handleRedirect = () => {
     if (isAdmin) {
-      router.push('/admin-panel'); // Redirigir al panel de admin si es admin
+      router.push('/panel'); // Redirigir al panel de admin si es admin
     } else {
       router.push('/dashboard'); // Redirigir al dashboard si es usuario normal
     }
