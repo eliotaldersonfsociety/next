@@ -24,16 +24,24 @@ import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector";
 
+// Se ha actualizado la interfaz para incluir el user_id en la compra
 interface PurchasedProduct {
   id: string;
+  user_id: string;
   items: string | { name: string; image: string }[];
   total_amount: number;
   address: string;
   buyer: string;
 }
 
+// Se amplió la interfaz User para incluir más datos
 interface User {
+  id: string;
   email: string;
+  name: string;
+  lastname: string;
+  address: string;
+  postalcode: string;
   saldo: number;
 }
 
@@ -421,7 +429,7 @@ export default function UserDashboardWithAvatar() {
               <h2 className="text-xl font-bold mb-4">Detalles de la Compra</h2>
               <p><strong>ID:</strong> {selectedPurchase.id}</p>
               <p><strong>Comprador:</strong> {selectedPurchase.buyer}</p>
-              <p><strong>Dirección:</strong> {selectedPurchase.address}</p>
+              <p><strong>Dirección de la Compra:</strong> {selectedPurchase.address}</p>
               <p><strong>Total:</strong> ${selectedPurchase.total_amount.toFixed(2)}</p>
               <p><strong>Productos:</strong></p>
               <ul>
@@ -429,6 +437,21 @@ export default function UserDashboardWithAvatar() {
                   <li key={index}>{item.name}</li>
                 ))}
               </ul>
+              {/* Se agrega la sección para mostrar los datos del usuario asociados a la compra */}
+              {(() => {
+                const userData = users.find(u => u.id === selectedPurchase.user_id);
+                return userData ? (
+                  <div className="mt-4">
+                    <p><strong>Email:</strong> {userData.email}</p>
+                    <p><strong>Nombre:</strong> {userData.name}</p>
+                    <p><strong>Apellido:</strong> {userData.lastname}</p>
+                    <p><strong>Dirección:</strong> {userData.address}</p>
+                    <p><strong>Código Postal:</strong> {userData.postalcode}</p>
+                  </div>
+                ) : (
+                  <p className="mt-4">Datos de usuario no disponibles.</p>
+                );
+              })()}
               <button
                 onClick={() => setSelectedPurchase(null)}
                 className="mt-4 p-2 bg-blue-500 text-white rounded"
