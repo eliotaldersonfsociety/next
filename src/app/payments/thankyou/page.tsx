@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+//import Image from 'next/image';
 import { useSession } from '../../pages/context/SessionContext';
 import Header from '../../pages/Header';
 import Footer from '../../pages/footer';
