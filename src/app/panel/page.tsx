@@ -24,7 +24,7 @@ import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector";
 
-// Interfaz para la compra, donde user_id corresponde al id del usuario en la base de datos
+// Interfaz para la compra (user_id corresponde al id del usuario en la base de datos)
 interface PurchasedProduct {
   id: string;
   user_id: string;
@@ -34,7 +34,7 @@ interface PurchasedProduct {
   buyer: string;
 }
 
-// Interfaz para el usuario, actualizada para reflejar que la dirección se llama "direction"
+// Interfaz para el usuario, se asume que la dirección se llama "direction"
 interface User {
   id: string | number;
   email: string;
@@ -409,9 +409,7 @@ export default function UserDashboardWithAvatar() {
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`px-3 py-1 border rounded ${
-                      currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"
-                    }`}
+                    className={`px-3 py-1 border rounded ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"}`}
                   >
                     {index + 1}
                   </button>
@@ -427,8 +425,8 @@ export default function UserDashboardWithAvatar() {
               <h2 className="text-xl font-bold mb-4">Detalles de la Compra</h2>
               <p><strong>ID:</strong> {selectedPurchase.id}</p>
               {(() => {
-                // Se obtiene el usuario asociado a la compra comparando los IDs
-                const userData = users.find(u => Number(u.id) === Number(selectedPurchase.user_id));
+                // Convertimos ambos valores a string para que la comparación funcione correctamente
+                const userData = users.find(u => String(u.id) === String(selectedPurchase.user_id));
                 const comprador = userData ? `${userData.name} ${userData.lastname}` : "No disponible";
                 const direccionCompra = userData ? userData.direction : "No disponible";
                 return (
@@ -446,7 +444,7 @@ export default function UserDashboardWithAvatar() {
                 ))}
               </ul>
               {(() => {
-                const userData = users.find(u => Number(u.id) === Number(selectedPurchase.user_id));
+                const userData = users.find(u => String(u.id) === String(selectedPurchase.user_id));
                 return userData ? (
                   <div className="mt-4">
                     <p><strong>Email:</strong> {userData.email}</p>
