@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { useSession } from '../context/SessionProvider';
+import { useSession } from '../../pages/context/SessionProvider';
 import Header from '../../pages/Header';
 import Footer from '../../pages/footer';
 
