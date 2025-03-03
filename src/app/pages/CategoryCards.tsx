@@ -8,7 +8,7 @@ const categories = [
   { name: 'Deportes', image: '/t11.png', path: '/categorias/deportes' },
   { name: 'Juguetes', image: '/t7.png', path: '/categorias/juguetes' },
   { name: 'Belleza', image: '/t6.png', path: '/categorias/belleza' },
-  { name: 'Automotriz', image: '/t4.png', path: '/pages/automotriz' },
+  { name: 'Automotriz', image: '/t4.png', path: '/pages/categorias/automotriz' },
   { name: 'Libros', image: '/t5.png', path: '/categorias/libros' },
   { name: 'Mascotas', image: '/t12.png', path: '/categorias/mascotas' },
   { name: 'Alimentos', image: '/t13.png', path: '/categorias/alimentos' },
