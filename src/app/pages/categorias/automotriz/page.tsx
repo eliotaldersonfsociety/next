@@ -1,7 +1,7 @@
 "use client"; // Esta línea marca el archivo como un componente del cliente
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Importamos Link de React Router
+import Link from 'next/link'; // Importamos Link de Next.js
 import ClipLoader from 'react-spinners/ClipLoader'; // Importamos el spinner
 
 const ck = import.meta.env.VITE_API_KEY;
@@ -61,7 +61,7 @@ export default function Automotriz({ categorySlug = "539" }: Props) {
                   key={product.id}
                   className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                 >
-                  <Link to={`/product/${product.id}`}>
+                  <Link href={`/product/${product.id}`}>
                     <img
                       src={product.images[0]?.src}
                       alt={product.name}
