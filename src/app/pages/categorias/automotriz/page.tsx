@@ -1,3 +1,5 @@
+"use client"; // Esta línea marca el archivo como un componente del cliente
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Importamos Link de React Router
 import ClipLoader from 'react-spinners/ClipLoader'; // Importamos el spinner
