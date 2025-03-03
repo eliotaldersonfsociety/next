@@ -24,23 +24,23 @@ import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
 import AvatarSelector from "../pages/AvatarSelector";
 
-// Se ha actualizado la interfaz para incluir el user_id en la compra
+// Interfaz para la compra, donde user_id corresponde al id del usuario en la base de datos
 interface PurchasedProduct {
   id: string;
-  user_id: string; // ID del usuario que realizó la compra
+  user_id: string;
   items: string | { name: string; image: string }[];
   total_amount: number;
   address: string;
   buyer: string;
 }
 
-// Se amplió la interfaz User para incluir más datos
+// Interfaz para el usuario, actualizada para reflejar que la dirección se llama "direction"
 interface User {
   id: string | number;
   email: string;
   name: string;
   lastname: string;
-  address: string;
+  direction: string;
   postalcode: string;
   saldo: number;
 }
@@ -129,7 +129,6 @@ export default function UserDashboardWithAvatar() {
         }
         const data = await res.json();
         setSaldo(data.saldo);
-        console.log("Saldo obtenido:", data);
       } catch (error) {
         console.error("Error al obtener el saldo:", error);
         toast.error("Error al obtener el saldo");
@@ -213,7 +212,6 @@ export default function UserDashboardWithAvatar() {
         body: JSON.stringify({ email, saldo: newSaldo }),
       });
       if (!response.ok) throw new Error("Failed to update saldo");
-      // Renombramos la variable a _data para evitar el error ESLint de variable no usada
       const _data = await response.json();
       console.log("Datos obtenidos:", _data);
       setUsers((prevUsers) =>
@@ -428,8 +426,18 @@ export default function UserDashboardWithAvatar() {
             <div className="bg-white p-6 rounded-lg max-w-lg w-full">
               <h2 className="text-xl font-bold mb-4">Detalles de la Compra</h2>
               <p><strong>ID:</strong> {selectedPurchase.id}</p>
-              <p><strong>Comprador:</strong> {selectedPurchase.buyer || "No disponible"}</p>
-              <p><strong>Dirección de la Compra:</strong> {selectedPurchase.address || "No disponible"}</p>
+              {(() => {
+                // Se obtiene el usuario asociado a la compra comparando los IDs
+                const userData = users.find(u => Number(u.id) === Number(selectedPurchase.user_id));
+                const comprador = userData ? `${userData.name} ${userData.lastname}` : "No disponible";
+                const direccionCompra = userData ? userData.direction : "No disponible";
+                return (
+                  <>
+                    <p><strong>Comprador:</strong> {comprador}</p>
+                    <p><strong>Dirección de la Compra:</strong> {direccionCompra}</p>
+                  </>
+                );
+              })()}
               <p><strong>Total:</strong> ${selectedPurchase.total_amount.toFixed(2)}</p>
               <p><strong>Productos:</strong></p>
               <ul>
@@ -438,14 +446,13 @@ export default function UserDashboardWithAvatar() {
                 ))}
               </ul>
               {(() => {
-                // Comparamos forzando la conversión a número para evitar problemas de tipo
                 const userData = users.find(u => Number(u.id) === Number(selectedPurchase.user_id));
                 return userData ? (
                   <div className="mt-4">
                     <p><strong>Email:</strong> {userData.email}</p>
                     <p><strong>Nombre:</strong> {userData.name}</p>
                     <p><strong>Apellido:</strong> {userData.lastname}</p>
-                    <p><strong>Dirección:</strong> {userData.address}</p>
+                    <p><strong>Dirección:</strong> {userData.direction}</p>
                     <p><strong>Código Postal:</strong> {userData.postalcode}</p>
                   </div>
                 ) : (
