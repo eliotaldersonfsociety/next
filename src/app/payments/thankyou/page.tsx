@@ -11,11 +11,11 @@ type PurchaseDetails = {
   id: string;
   amount: number;
   date: string;
-  items: { name: string; price: number; quantity: number }[];
+  items: PurchaseItem[];
   total: number;
   paymentMethod: string;
-  items: PurchaseItem[];
 };
+
 
 interface PurchaseItem {
   image: string;
