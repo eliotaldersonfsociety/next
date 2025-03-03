@@ -27,7 +27,7 @@ import AvatarSelector from "../pages/AvatarSelector";
 // Se ha actualizado la interfaz para incluir el user_id en la compra
 interface PurchasedProduct {
   id: string;
-  user_id: string;
+  user_id: string; // ID del usuario que realizó la compra
   items: string | { name: string; image: string }[];
   total_amount: number;
   address: string;
@@ -36,7 +36,7 @@ interface PurchasedProduct {
 
 // Se amplió la interfaz User para incluir más datos
 interface User {
-  id: string;
+  id: string | number;
   email: string;
   name: string;
   lastname: string;
@@ -122,7 +122,6 @@ export default function UserDashboardWithAvatar() {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
-
         if (!res.ok) {
           const errorText = await res.text();
           console.error(`Error al obtener el saldo: ${res.status} - ${res.statusText}`, errorText);
@@ -130,7 +129,6 @@ export default function UserDashboardWithAvatar() {
         }
         const data = await res.json();
         setSaldo(data.saldo);
-        console.log("Datos obtenidos:", data);
       } catch (error) {
         console.error("Error al obtener el saldo:", error);
         toast.error("Error al obtener el saldo");
@@ -215,7 +213,6 @@ export default function UserDashboardWithAvatar() {
       });
       if (!response.ok) throw new Error("Failed to update saldo");
       const data = await response.json();
-      console.log("Datos obtenidos:", data);
       setUsers((prevUsers) =>
         prevUsers.map((user) => (user.email === email ? { ...user, saldo: newSaldo } : user))
       );
@@ -428,8 +425,8 @@ export default function UserDashboardWithAvatar() {
             <div className="bg-white p-6 rounded-lg max-w-lg w-full">
               <h2 className="text-xl font-bold mb-4">Detalles de la Compra</h2>
               <p><strong>ID:</strong> {selectedPurchase.id}</p>
-              <p><strong>Comprador:</strong> {selectedPurchase.buyer}</p>
-              <p><strong>Dirección de la Compra:</strong> {selectedPurchase.address}</p>
+              <p><strong>Comprador:</strong> {selectedPurchase.buyer || "No disponible"}</p>
+              <p><strong>Dirección de la Compra:</strong> {selectedPurchase.address || "No disponible"}</p>
               <p><strong>Total:</strong> ${selectedPurchase.total_amount.toFixed(2)}</p>
               <p><strong>Productos:</strong></p>
               <ul>
@@ -437,9 +434,9 @@ export default function UserDashboardWithAvatar() {
                   <li key={index}>{item.name}</li>
                 ))}
               </ul>
-              {/* Se agrega la sección para mostrar los datos del usuario asociados a la compra */}
               {(() => {
-                const userData = users.find(u => u.id === selectedPurchase.user_id);
+                // Se compara forzando la conversión a número (o string) para evitar problemas de tipo
+                const userData = users.find(u => Number(u.id) === Number(selectedPurchase.user_id));
                 return userData ? (
                   <div className="mt-4">
                     <p><strong>Email:</strong> {userData.email}</p>
@@ -518,7 +515,9 @@ export default function UserDashboardWithAvatar() {
                   <button
                     key={index}
                     onClick={() => setCurrentPage(index + 1)}
-                    className={`px-3 py-1 border rounded ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"}`}
+                    className={`px-3 py-1 border rounded ${
+                      currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white text-black"
+                    }`}
                   >
                     {index + 1}
                   </button>
