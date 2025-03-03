@@ -241,7 +241,7 @@ export default function UserDashboardWithAvatar() {
   }
 
   return (
-    <>
+    <div>
       <Header />
       <div className="container mx-auto p-6 lg:px-36">
         <AvatarSelector />
@@ -506,6 +506,6 @@ export default function UserDashboardWithAvatar() {
         </Card>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
