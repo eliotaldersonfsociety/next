@@ -22,11 +22,14 @@ import Footer from "../pages/footer";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import Header from "../pages/Header";
-import AvatarSelector from "../pages/AvatarSelector"; // Componente para seleccionar avatar❤️
+import AvatarSelector from "../pages/AvatarSelector";
 
 interface PurchasedProduct {
+  id: string;
   items: string | { name: string; image: string }[];
   total_amount: number;
+  address: string;
+  buyer: string;
 }
 
 interface User {
@@ -46,6 +49,7 @@ export default function UserDashboardWithAvatar() {
   const [inputSaldo, setInputSaldo] = useState<{ [key: string]: number | string }>({});
   const [searchEmail, setSearchEmail] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedPurchase, setSelectedPurchase] = useState<PurchasedProduct | null>(null);
   const itemsPerPage = 10;
 
   const filteredUsers = users.filter((user) =>
@@ -343,7 +347,8 @@ export default function UserDashboardWithAvatar() {
                   displayedPurchases.map((purchase, index) => (
                     <TableRow
                       key={index}
-                      className={index === 0 && currentPage === 1 ? "bg-green-100" : ""}
+                      onClick={() => setSelectedPurchase(purchase)}
+                      className={`cursor-pointer ${index === 0 && currentPage === 1 ? "bg-green-100" : ""}`}
                     >
                       <TableCell>
                         {(() => {
@@ -410,19 +415,43 @@ export default function UserDashboardWithAvatar() {
           </CardContent>
         </Card>
 
+        {selectedPurchase && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg max-w-lg w-full">
+              <h2 className="text-xl font-bold mb-4">Detalles de la Compra</h2>
+              <p><strong>ID:</strong> {selectedPurchase.id}</p>
+              <p><strong>Comprador:</strong> {selectedPurchase.buyer}</p>
+              <p><strong>Dirección:</strong> {selectedPurchase.address}</p>
+              <p><strong>Total:</strong> ${selectedPurchase.total_amount.toFixed(2)}</p>
+              <p><strong>Productos:</strong></p>
+              <ul>
+                {getParsedItems(selectedPurchase.items).map((item, index) => (
+                  <li key={index}>{item.name}</li>
+                ))}
+              </ul>
+              <button
+                onClick={() => setSelectedPurchase(null)}
+                className="mt-4 p-2 bg-blue-500 text-white rounded"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        )}
+
         <Card className="mt-6">
           <CardHeader>
             <CardTitle>Usuarios Registrados</CardTitle>
           </CardHeader>
           <div className="mb-6 flex justify-between items-center pl-4">
-          <input
-            type="text"
-            placeholder="Buscar por email"
-            value={searchEmail}
-            onChange={(e) => setSearchEmail(e.target.value)}
-            className="border p-2 rounded"
-          />
-        </div>
+            <input
+              type="text"
+              placeholder="Buscar por email"
+              value={searchEmail}
+              onChange={(e) => setSearchEmail(e.target.value)}
+              className="border p-2 rounded"
+            />
+          </div>
           <CardContent>
             <Table>
               <TableHeader>
@@ -453,7 +482,7 @@ export default function UserDashboardWithAvatar() {
                       </button>
                       <div className="mt-2 text-sm text-gray-600">
                         Saldo final: $
-                        {(user.saldo + (parseFloat(inputSaldo[user.email] as string) || 0)).toFixed(2)}
+                        {(user.saldo + (parseFloat(inputSaldo[user.email] as string) || 0).toFixed(2)}
                       </div>
                     </TableCell>
                   </TableRow>
