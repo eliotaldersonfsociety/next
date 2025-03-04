@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'; // Importar Image de next/image
 import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
@@ -7,6 +8,7 @@ import Link from 'next/link'; // Importar Link desde next/link
 const ck = import.meta.env.VITE_API_KEY;
 const cs = import.meta.env.VITE_API_SECRET;
 
+// Define the types
 interface Product {
   id: number;
   name: string;
@@ -14,22 +16,21 @@ interface Product {
   price_html: string;
 }
 
-interface Props {
-  categorySlug: string; // Slug obligatorio para la categoría
+interface AutomotrizProps {
+  categorySlug?: string; // Slug opcional para la categoría
 }
 
-const Automotriz: React.FC<Props> = ({ categorySlug = "539" }) => {
-  const [products, setProducts] = useState<Product[]>([]); // Usar el tipo Product
-  const [loading, setLoading] = useState<boolean>(true); // Estado para el indicador de carga
+const Automotriz: React.FC<AutomotrizProps> = ({ categorySlug = "539" }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true); // Activamos el estado de carga
-
+        setLoading(true);
         const res = await fetch(`https://texasstore.local/wp-json/wc/v3/products?category=${categorySlug}`, {
           headers: {
-            Authorization: `Basic ${btoa(`${ck}:${cs}`)}`, // Usamos `btoa` en lugar de `Buffer` para base64
+            Authorization: `Basic ${btoa(`${ck}:${cs}`)}`,
           },
         });
 
@@ -39,11 +40,11 @@ const Automotriz: React.FC<Props> = ({ categorySlug = "539" }) => {
         }
 
         const data = await res.json();
-        setProducts(data); // Actualiza el estado con los productos obtenidos
+        setProducts(data);
       } catch (error) {
         console.error("Error:", error);
       } finally {
-        setLoading(false); // Desactivamos el estado de carga
+        setLoading(false);
       }
     };
 
@@ -71,8 +72,8 @@ const Automotriz: React.FC<Props> = ({ categorySlug = "539" }) => {
                     <Image
                       src={product.images[0]?.src}
                       alt={product.name}
-                      width={500} // Especifica un tamaño adecuado
-                      height={500} // Especifica un tamaño adecuado
+                      width={500}
+                      height={500}
                       className="w-full h-64 object-cover mb-4 rounded-md"
                     />
                     <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
@@ -93,5 +94,4 @@ const Automotriz: React.FC<Props> = ({ categorySlug = "539" }) => {
   );
 };
 
-export default Automotriz; // Exporta correctamente el componente
-
+export default Automotriz;
