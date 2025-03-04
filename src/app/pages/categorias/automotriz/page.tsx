@@ -8,7 +8,7 @@ import Link from 'next/link'; // Importar Link desde next/link
 const ck = import.meta.env.VITE_API_KEY;
 const cs = import.meta.env.VITE_API_SECRET;
 
-// Define the types
+// Define the types directly in the component file
 interface Product {
   id: number;
   name: string;
@@ -16,11 +16,7 @@ interface Product {
   price_html: string;
 }
 
-interface AutomotrizProps {
-  categorySlug?: string; // Slug opcional para la categoría
-}
-
-const Automotriz: React.FC<AutomotrizProps> = ({ categorySlug = "539" }) => {
+const Automotriz = ({ categorySlug = "539" }: { categorySlug?: string }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
