@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image'; // Importar Image de next/image
-import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
-import Link from 'next/link'; // Importar Link desde next/link
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import ClipLoader from "react-spinners/ClipLoader";
+import Link from "next/link";
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
 
-// Define the types directly in the component file
 interface Product {
   id: number;
   name: string;
@@ -16,7 +15,7 @@ interface Product {
   price_html: string;
 }
 
-const Automotriz = ({ categorySlug = "539" }: { categorySlug?: string }) => {
+const Automotriz = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -24,11 +23,12 @@ const Automotriz = ({ categorySlug = "539" }: { categorySlug?: string }) => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products`, {
-          headers: {
-            Authorization: `Basic ${btoa(`${ck}:${cs}`)}`,
-          },
-        });
+        const res = await fetch(
+          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products`,
+          {
+            headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
+          }
+        );
 
         if (!res.ok) {
           console.error("Error fetching products:", res.statusText);
@@ -45,7 +45,7 @@ const Automotriz = ({ categorySlug = "539" }: { categorySlug?: string }) => {
     };
 
     fetchProducts();
-  }, [categorySlug]);
+  }, []);
 
   return (
     <div className="bg-white lg:mx-36">
@@ -81,7 +81,7 @@ const Automotriz = ({ categorySlug = "539" }: { categorySlug?: string }) => {
                 </div>
               ))
             ) : (
-              <p>No products found in this category.</p>
+              <p>No products found.</p>
             )}
           </div>
         )}
