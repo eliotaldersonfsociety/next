@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'; // Importar Image de next/image
 import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
