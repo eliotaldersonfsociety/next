@@ -1,5 +1,3 @@
-"use client"; // Esta línea marca el archivo como un componente del cliente
-
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image'; // Importar Image de next/image
 import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
@@ -16,10 +14,10 @@ interface Product {
 }
 
 interface Props {
-  categorySlug?: string; // Slug opcional para la categoría
+  categorySlug: string; // Slug obligatorio para la categoría
 }
 
-export default function Automotriz({ categorySlug = "539" }: Props) {
+const Automotriz: React.FC<Props> = ({ categorySlug = "539" }) => {
   const [products, setProducts] = useState<Product[]>([]); // Usar el tipo Product
   const [loading, setLoading] = useState<boolean>(true); // Estado para el indicador de carga
 
@@ -92,4 +90,7 @@ export default function Automotriz({ categorySlug = "539" }: Props) {
       </main>
     </div>
   );
-}
+};
+
+export default Automotriz; // Exporta correctamente el componente
+
