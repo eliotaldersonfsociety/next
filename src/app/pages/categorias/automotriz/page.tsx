@@ -5,8 +5,8 @@ import Image from 'next/image'; // Importar Image de next/image
 import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
 import Link from 'next/link'; // Importar Link desde next/link
 
-const ck = ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13;
-const cs = import.meta.env.VITE_API_SECRET;
+const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
+const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
 
 // Define the types directly in the component file
 interface Product {
