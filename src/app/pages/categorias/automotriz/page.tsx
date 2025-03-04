@@ -5,7 +5,7 @@ import Image from 'next/image'; // Importar Image de next/image
 import ClipLoader from 'react-spinners/ClipLoader'; // Importar el spinner
 import Link from 'next/link'; // Importar Link desde next/link
 
-const ck = import.meta.env.VITE_API_KEY;
+const ck = ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13;
 const cs = import.meta.env.VITE_API_SECRET;
 
 // Define the types directly in the component file
