@@ -24,7 +24,7 @@ const Automotriz = ({ categorySlug = "539" }: { categorySlug?: string }) => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`https://texasstore.local/wp-json/wc/v3/products?category=${categorySlug}`, {
+        const res = await fetch(`https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=${categorySlug}`, {
           headers: {
             Authorization: `Basic ${btoa(`${ck}:${cs}`)}`,
           },
