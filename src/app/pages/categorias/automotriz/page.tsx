@@ -5,7 +5,7 @@ import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import Link from "next/link";
 import Header from "../../Header";
-import Footer from "../../Footer"; // Cambié "footer" a "Footer" para seguir convenciones de nombres
+import footer from "../../footer"; // Cambié "footer" a "Footer" para seguir convenciones de nombres
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
