@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import Link from "next/link";
+import Header from "../../Header";
+import footer from "../../footer";
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
@@ -48,6 +50,7 @@ const Automotriz = () => {
   }, []);
 
   return (
+    <Header />
     <div className="bg-white lg:mx-36">
       <main className="text-center px-5 mt-20">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Automotriz</h1>
@@ -87,6 +90,7 @@ const Automotriz = () => {
         )}
       </main>
     </div>
+    <footer />
   );
 };
 
