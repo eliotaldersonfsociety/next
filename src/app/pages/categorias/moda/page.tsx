@@ -26,7 +26,7 @@ const Moda = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=18&per_page=198`,
+          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=198&per_page=20`,
           {
             headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
           }
@@ -54,7 +54,7 @@ const Moda = () => {
       <Header />
       <div className="bg-white lg:mx-36">
         <main className="text-center px-5 mt-20 pb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Automotriz</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Moda</h1>
 
           {loading ? (
             <div className="flex items-center justify-center h-64">
