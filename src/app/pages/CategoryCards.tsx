@@ -2,18 +2,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const categories = [
-  { name: 'Electrónica', image: '/t10.png', path: '/categorias/electronica' },
-  { name: 'Moda', image: '/t8.png', path: '/categorias/moda' },
-  { name: 'Hogar y Jardín', image: '/t9.png', path: '/categorias/hogar-y-jardin' },
-  { name: 'Deportes', image: '/t11.png', path: '/categorias/deportes' },
-  { name: 'Juguetes', image: '/t7.png', path: '/categorias/juguetes' },
-  { name: 'Belleza', image: '/t6.png', path: '/categorias/belleza' },
+  { name: 'Electrónica', image: '/t10.png', path: '/pages/categorias/electronica' },
+  { name: 'Moda', image: '/t8.png', path: '/pages/categorias/moda' },
+  { name: 'Hogar y Jardín', image: '/t9.png', path: '/pages/categorias/hogar-y-jardin' },
+  { name: 'Deportes', image: '/t11.png', path: '/pages/categorias/deportes' },
+  { name: 'Juguetes', image: '/t7.png', path: '/pages/categorias/juguetes' },
+  { name: 'Belleza', image: '/t6.png', path: '/pages/categorias/belleza' },
   { name: 'Automotriz', image: '/t4.png', path: '/pages/categorias/automotriz' },
-  { name: 'Libros', image: '/t5.png', path: '/categorias/libros' },
-  { name: 'Mascotas', image: '/t12.png', path: '/categorias/mascotas' },
-  { name: 'Alimentos', image: '/t13.png', path: '/categorias/alimentos' },
-  { name: 'Salud', image: '/t14.png', path: '/categorias/salud' },
-  { name: 'Arte', image: '/t15.png', path: '/categorias/arte' },
+  { name: 'Libros', image: '/t5.png', path: '/pages/categorias/libros' },
+  { name: 'Mascotas', image: '/t12.png', path: '/pages/categorias/mascotas' },
+  { name: 'Alimentos', image: '/t13.png', path: '/pages/categorias/alimentos' },
+  { name: 'Salud', image: '/t14.png', path: '/pages/categorias/salud' },
+  { name: 'Arte', image: '/t15.png', path: '/pages/categorias/arte' },
 ]
 
 export default function CategoryCards() {
