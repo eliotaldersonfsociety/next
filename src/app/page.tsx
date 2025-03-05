@@ -31,7 +31,7 @@ export default function Home() {
     const fetchProducts = async () => {
       try {
         setLoading(true); // Activamos el estado de carga
-        const res = await fetch("https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products/", {
+        const res = await fetch("https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?per_page=20", {
           headers: {
             Authorization: `Basic ${btoa(`${ck}:${cs}`)}`,
           },
