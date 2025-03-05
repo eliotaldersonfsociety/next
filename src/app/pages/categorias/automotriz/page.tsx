@@ -53,7 +53,7 @@ const Automotriz = () => {
     <>
       <Header />
       <div className="bg-white lg:mx-36">
-        <main className="text-center px-5 mt-20 pt-12">
+        <main className="text-center px-5 mt-20 pb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Automotriz</h1>
 
           {loading ? (
