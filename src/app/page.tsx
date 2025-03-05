@@ -63,7 +63,7 @@ export default function Home() {
       <PromoCards />
       <CategoryCards />
 
-      <main className="text-center px-5 mt-20 mx-12">
+      <main className="text-center px-5 mt-20 px-4 sm:px-6 lg:px-8 pb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Productos</h1>
 
         {loading ? ( // Muestra el spinner si está cargando
