@@ -91,7 +91,7 @@ const Automotriz = () => {
           )}
         </main>
       </div>
-      <Footer />
+      <footer />
     </>
   );
 };
