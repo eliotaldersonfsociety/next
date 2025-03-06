@@ -10,6 +10,8 @@ const floatingAnimation = `
 
 import Image from 'next/image'
 import { Truck } from 'lucide-react'
+import Link from 'next/link'; // Importa Link
+
 
 export default function Hero() {
   return (
@@ -40,9 +42,11 @@ export default function Hero() {
           </span>
         </h1>
         <div className="flex flex-col md:flex-row gap-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
-            Hasta 20% de descuento
-          </button>
+          <Link href="/categorias/promociones">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
+              Hasta 40% de descuento
+            </button>
+          </Link>
           <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-colors flex items-center gap-2">
             <Truck className="w-5 h-5" />
             Envío gratis hasta tu casa
