@@ -27,7 +27,7 @@ const Motos = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=18&per_page=20`,
+          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=223&per_page=20`,
           {
             headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
           }
