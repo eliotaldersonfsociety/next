@@ -84,7 +84,7 @@ const Alimentos = () => {
                         {product.sale_price && product.sale_price !== product.regular_price ? (
                           <>
                             <span className="line-through text-gray-500">${product.regular_price}</span>{" "}
-                            <span className="text-red-500">${product.sale_price}</span>
+                            <span className="text-red-500 text-2xl font-extrabold">${product.sale_price}</span>
                           </>
                         ) : (
                           <span>${product.regular_price}</span>
