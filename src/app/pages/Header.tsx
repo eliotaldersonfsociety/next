@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,7 @@ export default function Header() {
   const { session, clearUserSession, setUserSession, sessionLoading } = useSession();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null); 
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -56,12 +56,13 @@ export default function Header() {
     id: number;
     name: string;
   }
-  
+
   interface Product {
     id: number;
     name: string;
     price: number;
   }
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
@@ -69,7 +70,7 @@ export default function Header() {
       alert("Por favor, verifica que no eres un robot.");
       return;
     }
-    
+
     try {
       const response = await fetch('https://aaa-eight-beta.vercel.app/api/v1/user/login', {
         method: 'POST',
@@ -103,14 +104,14 @@ export default function Header() {
 
       setEmail('');
       setPassword('');
-      
-      //redirigir segun el rol
-      if (data.user.isAdmin){
+
+      // Redirigir según el rol
+      if (data.user.isAdmin) {
         router.push('/panel');
       } else {
         router.push('/dashboard')
       }
-      
+
       alert('Inicio de sesión exitoso');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -144,7 +145,7 @@ export default function Header() {
   if (sessionLoading) {
     return <div>Cargando...</div>;
   }
-  
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -169,7 +170,6 @@ export default function Header() {
 
     const fetchProducts = async () => {
       try {
-        setLoading(true);
         const res = await fetch(
           `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=195&per_page=20`,
           {
@@ -186,14 +186,25 @@ export default function Header() {
         setProducts(data);
       } catch (error) {
         console.error("Error:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchCategories();
     fetchProducts();
   }, []);
+
+  const filteredProducts = products.filter((product) => {
+    const lowerSearchQuery = searchQuery.toLowerCase();
+
+    // Buscar por nombre de producto o por categoría
+    const matchesCategory = categories.some((category) =>
+      category.name.toLowerCase().includes(lowerSearchQuery)
+    );
+
+    const matchesProduct = product.name.toLowerCase().includes(lowerSearchQuery);
+
+    return matchesCategory || matchesProduct;
+  });
 
   return (
     <header className="bg-[#041E42] p-4 border-b-4 border-[#AC252D]">
@@ -203,12 +214,12 @@ export default function Header() {
             <Image src="/tsb.png" alt="Logo" width={128} height={40} className="h-8" />
           </Link>
           <input
-        type="text"
-        placeholder="Buscar productos o categorías..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 rounded-md w-1/2 mb-4"
-      />
+            type="text"
+            placeholder="Buscar productos o categorías..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="p-2 rounded-md w-1/2 mb-4"
+          />
           <div className="flex items-center space-x-4">
             <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
               <SheetTrigger asChild>
@@ -230,27 +241,26 @@ export default function Header() {
                     ) : (
                       <>
                         {cart.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between py-2">
-                          <p>{item.name} - ${item.price.toFixed(2)}</p>
-                          <Button variant="outline" size="sm" onClick={() => decreaseQuantity(item.id)}>-</Button>
-                          <span>{item.quantity}</span>
-                          <Button variant="outline" size="sm" onClick={() => increaseQuantity(item.id)}>+</Button>
-                          <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id)}>Eliminar</Button>
-                        </div>
-                       ))}
+                          <div key={item.id} className="flex items-center justify-between py-2">
+                            <p>{item.name} - ${item.price.toFixed(2)}</p>
+                            <Button variant="outline" size="sm" onClick={() => decreaseQuantity(item.id)}>-</Button>
+                            <span>{item.quantity}</span>
+                            <Button variant="outline" size="sm" onClick={() => increaseQuantity(item.id)}>+</Button>
+                            <Button variant="ghost" size="sm" onClick={() => removeFromCart(item.id)}>Eliminar</Button>
+                          </div>
+                        ))}
                         <Button
-                        className="mt-4 w-full bg-blue-600 text-white"
-                        onClick={() => {
-                          if (session?.isOnline) {
-                            router.push('/payments'); // Si está logueado, va a pagos
-                          } else {
-                            router.push('/login'); // Si no está logueado, va a login
-                          }
-                        }}
-                      >
-                        Ir a Pagar
-                      </Button>
-
+                          className="mt-4 w-full bg-blue-600 text-white"
+                          onClick={() => {
+                            if (session?.isOnline) {
+                              router.push('/payments'); // Si está logueado, va a pagos
+                            } else {
+                              router.push('/login'); // Si no está logueado, va a login
+                            }
+                          }}
+                        >
+                          Ir a Pagar
+                        </Button>
                       </>
                     )}
                   </SheetDescription>
@@ -301,7 +311,7 @@ export default function Header() {
                       onChange={(token) => setRecaptchaToken(token)}
                       onExpired={() => setRecaptchaToken(null)}
                     />
-                    
+
                     <Button type="submit" className="w-full">Iniciar sesión</Button>
                   </form>
                 )}
