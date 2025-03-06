@@ -76,7 +76,7 @@ const Alimentos = () => {
                         height={500}
                         className="w-full h-64 object-cover mb-4 rounded-md"
                       />
-                      <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
+                      <h2 className="text-xl mb-2">{product.name}</h2>
                       <div
                         className="product-price text-lg font-bold text-gray-900"
                         dangerouslySetInnerHTML={{ __html: product.price_html }}
