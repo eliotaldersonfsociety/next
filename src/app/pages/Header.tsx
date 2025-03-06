@@ -33,11 +33,20 @@ export default function Header() {
   const [password, setPassword] = useState('');
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Product[]>([]); // Resultados de la búsqueda
   const router = useRouter();
 
   const RECAPTCHA_SITE_KEY = "6LeH-eMqAAAAAPKYq_dtoyDrNcuAath4MvgTa1_a";
   const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
   const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
+
+  interface Product {
+    id: number;
+    name: string;
+    price: string;
+    permalink: string;
+    images: { src: string }[];
+  }
 
   interface LoginResponse {
     token: string;
@@ -49,6 +58,42 @@ export default function Header() {
       isAdmin?: boolean;
     };
   }
+
+  // Función para buscar productos en WooCommerce
+  const searchProducts = async (query: string) => {
+    if (!query) {
+      setSearchResults([]); // Limpiar resultados si la consulta está vacía
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?search=${query}&per_page=10`,
+        {
+          headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
+        }
+      );
+
+      if (!response.ok) {
+        console.error("Error buscando productos:", response.statusText);
+        return;
+      }
+
+      const data = await response.json();
+      setSearchResults(data); // Almacenar los resultados de la búsqueda
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // Efecto para realizar la búsqueda cuando el usuario escribe
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      searchProducts(searchQuery);
+    }, 300); // Retraso de 300ms para evitar múltiples solicitudes
+
+    return () => clearTimeout(delayDebounceFn); // Limpiar el timeout
+  }, [searchQuery]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -131,13 +176,37 @@ export default function Header() {
           <Link href="/">
             <Image src="/tsb.png" alt="Logo" width={128} height={40} className="h-8" />
           </Link>
-          <input
-            type="text"
-            placeholder="Buscar productos o categorías..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="p-2 rounded-md w-1/2 mb-4"
-          />
+          <div className="relative w-1/2">
+            <input
+              type="text"
+              placeholder="Buscar productos o categorías..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="p-2 rounded-md w-full mb-4"
+            />
+            {/* Mostrar resultados de la búsqueda */}
+            {searchResults.length > 0 && (
+              <div className="absolute bg-white border border-gray-200 rounded-md w-full mt-1 z-10">
+                {searchResults.map((product) => (
+                  <Link
+                    key={product.id}
+                    href={`/product/${product.id}`} // Ajusta la ruta según tu aplicación
+                    className="flex items-center p-2 hover:bg-gray-100"
+                  >
+                    <img
+                      src={product.images[0]?.src || "/placeholder.png"}
+                      alt={product.name}
+                      className="w-10 h-10 object-cover mr-2"
+                    />
+                    <div>
+                      <p className="font-medium">{product.name}</p>
+                      <p className="text-sm text-gray-600">${product.price}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
           <div className="flex items-center space-x-4">
             <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
               <SheetTrigger asChild>
