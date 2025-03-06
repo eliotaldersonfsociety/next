@@ -105,8 +105,8 @@ const Hogar = () => {
             </div>
           )}
         </main>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
