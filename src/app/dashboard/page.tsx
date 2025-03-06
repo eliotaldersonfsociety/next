@@ -35,20 +35,11 @@ export default function UserDashboardWithAvatar() {
   const router = useRouter();
   const [purchasedProducts, setPurchasedProducts] = useState<PurchasedProduct[]>([]);
   const [saldo, setSaldo] = useState<number>(0);
-  const [showDollarIcon, setShowDollarIcon] = useState(false);
   const [loading, setLoading] = useState(true);
 
   // Paginación: 10 compras por página
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
-
-  // Alterna el ícono cada 3 segundos (solo visual)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowDollarIcon((prev) => !prev);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Verifica la sesión y redirige si no hay usuario autenticado
   useEffect(() => {
@@ -203,7 +194,7 @@ export default function UserDashboardWithAvatar() {
               className="cursor-pointer bg-green-500 hover:bg-green-600"
               onClick={redirectToWhatsApp}
             >
-              {showDollarIcon && <DollarSign className="h-4 w-4" />}
+              <DollarSign className="h-4 w-4" />
               <span>Recargar saldo</span>
             </Badge>
             <Badge
