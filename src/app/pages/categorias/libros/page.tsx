@@ -5,7 +5,7 @@ import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import Link from "next/link";
 import Header from "../../Header";
-import Footer from "../../footer"; // Cambié "footer" a "Footer" para seguir convenciones de nombres
+import Footer from "../../Footer"; // Corrigiendo el nombre del Footer para mantener la convención
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
@@ -15,6 +15,8 @@ interface Product {
   name: string;
   images: { src: string }[];
   price_html: string;
+  regular_price: string;
+  sale_price: string;
 }
 
 const Libros = () => {
@@ -63,20 +65,24 @@ const Libros = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {products.length > 0 ? (
-                products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-                  >
-                    <Link href={`/product/${product.id}`}>
-                      <Image
-                        src={product.images[0]?.src}
-                        alt={product.name}
-                        width={500}
-                        height={500}
-                        className="w-full h-64 object-cover mb-4 rounded-md"
-                      />
-                      <h2 className="text-xl mb-2">{product.name}</h2>
+                products.map((product) => {
+                  const regularPrice = parseFloat(product.regular_price);
+                  const salePrice = parseFloat(product.sale_price);
+
+                  return (
+                    <div
+                      key={product.id}
+                      className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                    >
+                      <Link href={`/product/${product.id}`}>
+                        <Image
+                          src={product.images[0]?.src}
+                          alt={product.name}
+                          width={500}
+                          height={500}
+                          className="w-full h-64 object-cover mb-4 rounded-md"
+                        />
+                        <h2 className="text-xl mb-2">{product.name}</h2>
                         {/* Mostrar precios */}
                         <div className="product-price text-lg font-bold text-gray-900">
                           {salePrice && salePrice !== regularPrice ? (
