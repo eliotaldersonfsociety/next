@@ -153,7 +153,7 @@ export default function HomePage() {
                 <p className="text-primary-foreground/90 mb-6">
                   Descubre nuestras mejores promociones con descuentos increíbles
                 </p>
-                <Link href="/pages/categorias/ofertas">
+                <Link href="/pages/categorias/promociones">
                   <Badge variant="secondary" className="text-lg py-1 px-4">
                     Hasta 40% OFF
                   </Badge>
