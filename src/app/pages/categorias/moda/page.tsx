@@ -80,30 +80,31 @@ const Moda = () => {
                       <h2 className="text-xl mb-2">{product.name}</h2>
                       {/* Mostrar precios */}
                       <div className="product-price text-lg font-bold text-gray-900">
-                        {product.sale_price && product.sale_price !== product.regular_price ? (
+                        {product.sale_price &&
+                        product.sale_price !== product.regular_price ? (
                           <>
                             <span className="line-through text-gray-500">
-                              ${parseFloat(product.regular_price).toFixed(2)}
+                              ${product.regular_price}
                             </span>{" "}
                             <span className="text-red-500 text-2xl font-extrabold">
-                              ${parseFloat(product.sale_price).toFixed(2)}
+                              ${product.sale_price}
                             </span>
                           </>
                         ) : (
-                          <span>${parseFloat(product.regular_price).toFixed(2)}</span>
+                          <span>${product.regular_price}</span>
                         )}
                       </div>
                     </Link>
                   </div>
                 ))
               ) : (
-                <p>No se encontraron productos.</p>
+                <p>No hay productos disponibles en esta categoría.</p>
               )}
             </div>
           )}
         </main>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };
