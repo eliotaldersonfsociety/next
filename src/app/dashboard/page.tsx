@@ -204,6 +204,7 @@ export default function UserDashboardWithAvatar() {
               onClick={redirectToWhatsApp}
             >
               {showDollarIcon && <DollarSign className="h-4 w-4" />}
+              <span>Recargar saldo</span>
             </Badge>
             <Badge
               className="cursor-pointer bg-red-500 hover:bg-red-600"
