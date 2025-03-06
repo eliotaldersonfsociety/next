@@ -58,44 +58,46 @@ const categoryCards = [
   {
     title: "Moda",
     mainImage: "/t51.png",
+    link: "https://next-navy-seven.vercel.app/product/238",
     subImages: [
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/S85a469ad0f064a2e920a7394388ab4704.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/300"
+        link: "https://next-navy-seven.vercel.app/product/379"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/Sa9effe7f5a5e44e599af35cef134fef3r.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/301"
+        link: "https://next-navy-seven.vercel.app/product/368"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/S2ca90342ad8843eabd8e32ac56312ba36.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/302"
+        link: "https://next-navy-seven.vercel.app/product/325"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/Hb5dab28783a44de8b04bce62ade9ca62g.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/303"
+        link: "https://next-navy-seven.vercel.app/product/484"
       }
     ]
   },
   {
     title: "Hogar",
     mainImage: "/t50.png",
+    link: "https://next-navy-seven.vercel.app/product/721",
     subImages: [
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/S646589b42327422b84e4d72780e4f9fbo.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/400"
+        link: "https://next-navy-seven.vercel.app/product/866"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/Sf4f05975f13b4282a7fd14eda011b0199.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/401"
+        link: "https://next-navy-seven.vercel.app/product/855"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f52828dade4dd2b443a4845fdab5f6N.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/402"
+        link: "https://next-navy-seven.vercel.app/product/869"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/S05f6817e1ddf4e84892f9119c1a40703g.png_960x960.png_.avif",
-        link: "https://next-navy-seven.vercel.app/product/403"
+        link: "https://next-navy-seven.vercel.app/product/880"
       }
     ]
   }
