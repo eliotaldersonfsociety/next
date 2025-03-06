@@ -1,20 +1,19 @@
-'use client'; // Necesario para que funcione en el lado del cliente
+"use client";
 
-import { useState, useEffect } from 'react';
-import Header from './pages/Header';
-import Link from 'next/link'; // Importamos Link de Next.js
-import Image from 'next/image'; // Importamos Image de Next.js
-import Hero from './pages/Hero';
-import FeatureCards from './pages/FeatureCards';
-import PromoCards from './pages/PromoCards';
-import CategoryCards from './pages/CategoryCards';
-import ClipLoader from 'react-spinners/ClipLoader'; // Importamos el spinner
-import Footer from './pages/footer';
-import Oferts from './pages/Oferts';
+import { useState, useEffect } from "react";
+import Header from "./pages/Header";
+import Link from "next/link"; // Importamos Link de Next.js
+import Image from "next/image"; // Importamos Image de Next.js
+import Hero from "./pages/Hero";
+import FeatureCards from "./pages/FeatureCards";
+import PromoCards from "./pages/PromoCards";
+import CategoryCards from "./pages/CategoryCards";
+import ClipLoader from "react-spinners/ClipLoader"; // Importamos el spinner
+import Footer from "./pages/footer";
+import Oferts from "./pages/Oferts";
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
-
 
 export default function Home() {
   interface Product {
@@ -89,27 +88,23 @@ export default function Home() {
                   />
                   <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
                   {/* Mostrar precios */}
-                      <div className="product-price text-lg font-bold text-gray-900">
-                        {product.sale_price && product.sale_price !== product.regular_price ? (
-                          <>
-                            <span className="line-through text-gray-500">${product.regular_price}</span>{" "}
-                            <span className="text-red-500 text-2xl font-extrabold">${product.sale_price}</span>
-                          </>
-                        ) : (
-                          <span>${product.regular_price}</span>
-                        )}
-                      </div>
-                    </Link>
+                  <div className="product-price text-lg font-bold text-gray-900">
+                    {product.sale_price && product.sale_price !== product.regular_price ? (
+                      <>
+                        <span className="line-through text-gray-500">${product.regular_price}</span>{" "}
+                        <span className="text-red-500 text-2xl font-extrabold">${product.sale_price}</span>
+                      </>
+                    ) : (
+                      <span>${product.regular_price}</span>
+                    )}
                   </div>
-                ))
-              ) : (
-                <p>No products found.</p>
-              )}
-            </div>
-          )}
-        </main>
-      </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };
