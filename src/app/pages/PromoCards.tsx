@@ -85,11 +85,11 @@ const categoryCards = [
     subImages: [
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/S646589b42327422b84e4d72780e4f9fbo.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/866"
+        link: "https://next-navy-seven.vercel.app/product/855"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/Sf4f05975f13b4282a7fd14eda011b0199.jpg_960x960q75.jpg_.avif",
-        link: "https://next-navy-seven.vercel.app/product/855"
+        link: "https://next-navy-seven.vercel.app/product/866"
       },
       {
         src: "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f52828dade4dd2b443a4845fdab5f6N.jpg_960x960q75.jpg_.avif",
