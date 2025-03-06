@@ -4,7 +4,7 @@ import Link from 'next/link'
 const categories = [
   { name: 'Electrónica', image: '/t10.png', path: '/pages/categorias/electronica' },
   { name: 'Moda', image: '/t8.png', path: '/pages/categorias/moda' },
-  { name: 'Hogar y Jardín', image: '/t9.png', path: '/pages/categorias/hogar-y-jardin' },
+  { name: 'Hogar y Jardín', image: '/t9.png', path: '/pages/categorias/hogar' },
   { name: 'Deportes', image: '/t11.png', path: '/pages/categorias/deportes' },
   { name: 'Juguetes', image: '/t7.png', path: '/pages/categorias/juguetes' },
   { name: 'Belleza', image: '/t6.png', path: '/pages/categorias/belleza' },
