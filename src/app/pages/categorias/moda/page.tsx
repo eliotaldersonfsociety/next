@@ -64,50 +64,54 @@ const Moda = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {products.length > 0 ? (
-                products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-                  >
-                    <Link href={`/product/${product.id}`}>
-                      <Image
-                        src={product.images[0]?.src}
-                        alt={product.name}
-                        width={500}
-                        height={500}
-                        className="w-full h-64 object-cover mb-4 rounded-md"
-                      />
-                      <h2 className="text-xl mb-2">{product.name}</h2>
-                      {/* Mostrar precios */}
-                      <div className="product-price text-lg font-bold text-gray-900">
-                        {product.sale_price &&
-                        product.sale_price !== product.regular_price ? (
-                          <>
-                            <span className="line-through text-gray-500">
-                              ${product.regular_price}
-                            </span>{" "}
-                            <span className="text-red-500 text-2xl font-extrabold">
-                              ${product.sale_price}
-                            </span>
-                          </>
-                        ) : (
-                          <span>${product.regular_price}</span>
-                        )}
-                      </div>
-                    </Link>
-                  </div>
-                ))
+                products.map((product) => {
+                  // Convertir los precios de cadena a número
+                  const regularPrice = parseFloat(product.regular_price);
+                  const salePrice = parseFloat(product.sale_price);
+
+                  return (
+                    <div
+                      key={product.id}
+                      className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                    >
+                      <Link href={`/product/${product.id}`}>
+                        <Image
+                          src={product.images[0]?.src}
+                          alt={product.name}
+                          width={500}
+                          height={500}
+                          className="w-full h-64 object-cover mb-4 rounded-md"
+                        />
+                        <h2 className="text-xl mb-2">{product.name}</h2>
+                        {/* Mostrar precios */}
+                        <div className="product-price text-lg font-bold text-gray-900">
+                          {salePrice && salePrice !== regularPrice ? (
+                            <>
+                              <span className="line-through text-gray-500">
+                                ${regularPrice.toFixed(2)}
+                              </span>{" "}
+                              <span className="text-red-500 text-2xl font-extrabold">
+                                ${salePrice.toFixed(2)}
+                              </span>
+                            </>
+                          ) : (
+                            <span>${regularPrice.toFixed(2)}</span>
+                          )}
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })
               ) : (
                 <p>No hay productos disponibles en esta categoría.</p>
               )}
             </div>
           )}
         </main>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
-
 
 export default Moda;
