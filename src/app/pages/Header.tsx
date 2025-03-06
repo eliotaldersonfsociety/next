@@ -193,19 +193,6 @@ export default function Header() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = products.filter((product) => {
-    const lowerSearchQuery = searchQuery.toLowerCase();
-
-    // Buscar por nombre de producto o por categoría
-    const matchesCategory = categories.some((category) =>
-      category.name.toLowerCase().includes(lowerSearchQuery)
-    );
-
-    const matchesProduct = product.name.toLowerCase().includes(lowerSearchQuery);
-
-    return matchesCategory || matchesProduct;
-  });
-
   return (
     <header className="bg-[#041E42] p-4 border-b-4 border-[#AC252D]">
       <div className="container mx-auto lg:mx-36 sm:mx-4">
