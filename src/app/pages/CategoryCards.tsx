@@ -14,6 +14,10 @@ const categories = [
   { name: 'Alimentos', image: '/t13.png', path: '/pages/categorias/alimentos' },
   { name: 'Salud', image: '/t14.png', path: '/pages/categorias/salud' },
   { name: 'Arte', image: '/t15.png', path: '/pages/categorias/arte' },
+  { name: 'Motos', image: '/t54.png', path: '/pages/categorias/motos' },
+  { name: 'Gamer', image: '/t55.png', path: '/pages/categorias/gamer' },
+  { name: 'Celulares', image: '/t53.png', path: '/pages/categorias/celulares' },
+  { name: 'Computadoras', image: '/t56.png', path: '/pages/categorias/computadoras' },
 ]
 
 export default function CategoryCards() {
