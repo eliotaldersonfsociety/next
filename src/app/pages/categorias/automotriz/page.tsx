@@ -14,7 +14,8 @@ interface Product {
   id: number;
   name: string;
   images: { src: string }[];
-  price_html: string;
+  regular_price: string;
+  sale_price: string;
 }
 
 const Automotriz = () => {
@@ -76,11 +77,18 @@ const Automotriz = () => {
                         height={500}
                         className="w-full h-64 object-cover mb-4 rounded-md"
                       />
-                      <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-                      <div
-                        className="product-price text-lg font-bold text-gray-900"
-                        dangerouslySetInnerHTML={{ __html: product.price_html }}
-                      />
+                      <h2 className="text-xl mb-2">{product.name}</h2>
+                     {/* Mostrar precios */}
+                      <div className="product-price text-lg font-bold text-gray-900">
+                        {product.sale_price && product.sale_price !== product.regular_price ? (
+                          <>
+                            <span className="line-through text-gray-500">${product.regular_price}</span>{" "}
+                            <span className="text-red-500 text-2xl font-extrabold">${product.sale_price}</span>
+                          </>
+                        ) : (
+                          <span>${product.regular_price}</span>
+                        )}
+                      </div>
                     </Link>
                   </div>
                 ))
