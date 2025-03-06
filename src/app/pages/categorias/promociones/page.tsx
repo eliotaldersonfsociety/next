@@ -5,7 +5,8 @@ import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import Link from "next/link";
 import Header from "../../Header";
-import Footer from "../../footer"; // Cambié "footer" a "Footer" para seguir convenciones de nombres
+import Footer from "../../Footer"; // Cambié "footer" a "Footer" para seguir convenciones de nombres
+import { Badge } from "reactstrap"; // Asegúrate de importar el componente Badge si es que usas un paquete como reactstrap o usa el que prefieras
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
@@ -68,11 +69,26 @@ const Promociones = () => {
                   const regularPrice = parseFloat(product.regular_price);
                   const salePrice = parseFloat(product.sale_price);
 
+                  // Calcular el porcentaje de descuento
+                  const discountPercentage =
+                    salePrice && salePrice !== regularPrice
+                      ? Math.round(
+                          ((regularPrice - salePrice) / regularPrice) * 100
+                        )
+                      : 0;
+
                   return (
                     <div
                       key={product.id}
-                      className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                      className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer relative"
                     >
+                      {/* Mostrar Badge con descuento */}
+                      {discountPercentage > 0 && (
+                        <Badge className="absolute top-2 right-2 bg-red-500 hover:bg-red-600">
+                          -{discountPercentage}%
+                        </Badge>
+                      )}
+
                       <Link href={`/product/${product.id}`}>
                         <Image
                           src={product.images[0]?.src}
