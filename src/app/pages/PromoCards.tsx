@@ -1,4 +1,5 @@
-import Image from 'next/image'
+import Image from 'next/image';
+import Link from 'next/link';
 
 const promoCards = [
   {
@@ -38,40 +39,65 @@ const categoryCards = [
     link: "https://next-navy-seven.vercel.app/product/142",
     subImages: [
       {
-        src:"https://ae-pic-a1.aliexpress-media.com/kf/S5dec004714b4441cb5a0a36acd411512R.jpg_960x960q75.jpg_.avif",
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/S5dec004714b4441cb5a0a36acd411512R.jpg_960x960q75.jpg_.avif",
         link: "https://next-navy-seven.vercel.app/product/189"
       },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/S7de3633ba16a4c579be8cc592b4da1c9P.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/197"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/Se79d470ae60b427a8c040f60a4883ed6p.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/206"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/H3cd4207d606b422cbc2045461792238eZ.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/223"
       }
-        src:"https://ae-pic-a1.aliexpress-media.com/kf/S7de3633ba16a4c579be8cc592b4da1c9P.jpg_960x960q75.jpg_.avif",
-        link:"https://next-navy-seven.vercel.app/product/197"
-      },
-      {
-        src:"https://ae-pic-a1.aliexpress-media.com/kf/Se79d470ae60b427a8c040f60a4883ed6p.jpg_960x960q75.jpg_.avif",
-        link:"https://next-navy-seven.vercel.app/product/206"
-      },
-      {
-        src:"https://ae-pic-a1.aliexpress-media.com/kf/H3cd4207d606b422cbc2045461792238eZ.jpg_960x960q75.jpg_.avif",
-        link:"https://next-navy-seven.vercel.app/product/223"
     ]
   },
   {
     title: "Moda",
     mainImage: "/t51.png",
     subImages: [
-      "https://ae-pic-a1.aliexpress-media.com/kf/S85a469ad0f064a2e920a7394388ab4704.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/Sa9effe7f5a5e44e599af35cef134fef3r.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/S2ca90342ad8843eabd8e32ac56312ba36.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/Hb5dab28783a44de8b04bce62ade9ca62g.jpg_960x960q75.jpg_.avif"
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/S85a469ad0f064a2e920a7394388ab4704.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/300"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/Sa9effe7f5a5e44e599af35cef134fef3r.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/301"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/S2ca90342ad8843eabd8e32ac56312ba36.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/302"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/Hb5dab28783a44de8b04bce62ade9ca62g.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/303"
+      }
     ]
   },
   {
     title: "Hogar",
     mainImage: "/t50.png",
     subImages: [
-      "https://ae-pic-a1.aliexpress-media.com/kf/S646589b42327422b84e4d72780e4f9fbo.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/Sf4f05975f13b4282a7fd14eda011b0199.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f52828dade4dd2b443a4845fdab5f6N.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/S05f6817e1ddf4e84892f9119c1a40703g.png_960x960.png_.avif"
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/S646589b42327422b84e4d72780e4f9fbo.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/400"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/Sf4f05975f13b4282a7fd14eda011b0199.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/401"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/Sf6f52828dade4dd2b443a4845fdab5f6N.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/402"
+      },
+      {
+        src: "https://ae-pic-a1.aliexpress-media.com/kf/S05f6817e1ddf4e84892f9119c1a40703g.png_960x960.png_.avif",
+        link: "https://next-navy-seven.vercel.app/product/403"
+      }
     ]
   }
 ];
@@ -111,26 +137,30 @@ export default function PromoCards() {
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="p-4">
                 <h3 className="text-xl font-bold mb-4">{card.title}</h3>
-                <div className="relative h-48 mb-4">
-                  <Image
-                    src={card.mainImage}
-                    alt={card.title}
-                    layout="fill"
-                    objectFit="contain"  // Ajustar sin recortar
-                    className="object-center rounded-md"
-                  />
-                </div>
+                <a href={card.link}>
+                  <div className="relative h-48 mb-4">
+                    <Image
+                      src={card.mainImage}
+                      alt={card.title}
+                      layout="fill"
+                      objectFit="contain"
+                      className="object-center rounded-md"
+                    />
+                  </div>
+                </a>
                 <div className="grid grid-cols-4 gap-2">
                   {card.subImages.map((subImage, subIndex) => (
-                    <div key={subIndex} className="relative h-12 w-12">
-                      <Image
-                        src={subImage}
-                        alt={`${card.title} sub-image ${subIndex + 1}`}
-                        layout="fill"
-                        objectFit="contain"  // Igual para las subimágenes
-                        className="object-center rounded-md"
-                      />
-                    </div>
+                    <a key={subIndex} href={subImage.link}>
+                      <div className="relative h-12 w-12">
+                        <Image
+                          src={subImage.src}
+                          alt={`${card.title} sub-image ${subIndex + 1}`}
+                          layout="fill"
+                          objectFit="contain"
+                          className="object-center rounded-md"
+                        />
+                      </div>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -141,4 +171,3 @@ export default function PromoCards() {
     </div>
   )
 }
-
