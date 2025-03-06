@@ -32,9 +32,12 @@ export default function Header() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null); 
+  const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
   const RECAPTCHA_SITE_KEY = "6LeH-eMqAAAAAPKYq_dtoyDrNcuAath4MvgTa1_a";
+  const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
+  const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
 
   interface LoginResponse {
     token: string;
@@ -46,6 +49,7 @@ export default function Header() {
       isAdmin?: boolean;
     };
   }
+
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -129,6 +133,30 @@ export default function Header() {
   if (sessionLoading) {
     return <div>Cargando...</div>;
   }
+  
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch(
+        'https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products/categories',
+        {
+          headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
+        }
+      );
+  
+      if (!res.ok) {
+        console.error("Error fetching categories:", res.statusText);
+        return [];
+      }
+  
+      const categories = await res.json();
+      return categories;
+    } catch (error) {
+      console.error("Error:", error);
+      return [];
+    }
+  };
+
+  
 
   return (
     <header className="bg-[#041E42] p-4 border-b-4 border-[#AC252D]">
@@ -137,7 +165,13 @@ export default function Header() {
           <Link href="/">
             <Image src="/tsb.png" alt="Logo" width={128} height={40} className="h-8" />
           </Link>
-          <input type="text" placeholder="Buscar productos..." className="p-2 rounded-md w-1/2" />
+          <input
+        type="text"
+        placeholder="Buscar productos o categorías..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="p-2 rounded-md w-1/2 mb-4"
+      />
           <div className="flex items-center space-x-4">
             <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
               <SheetTrigger asChild>
