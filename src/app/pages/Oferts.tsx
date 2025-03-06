@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "./context/CartContext"; // Importa el contexto
-
+import Link from "next/link";
 
 // API credentials
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
@@ -153,9 +153,11 @@ export default function HomePage() {
                 <p className="text-primary-foreground/90 mb-6">
                   Descubre nuestras mejores promociones con descuentos increíbles
                 </p>
-                <Badge variant="secondary" className="text-lg py-1 px-4">
-                  Hasta 40% OFF
-                </Badge>
+                <Link href="/pages/categorias/ofertas">
+                  <Badge variant="secondary" className="text-lg py-1 px-4">
+                    Hasta 40% OFF
+                  </Badge>
+                </Link>
               </CardContent>
             </Card>
 
