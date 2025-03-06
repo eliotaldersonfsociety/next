@@ -42,7 +42,7 @@ export default function Hero() {
           </span>
         </h1>
         <div className="flex flex-col md:flex-row gap-4">
-          <Link href="/categorias/promociones">
+          <Link href="/pages/categorias/promociones">
             <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition-colors">
               Hasta 40% de descuento
             </button>
