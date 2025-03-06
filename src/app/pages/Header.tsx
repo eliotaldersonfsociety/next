@@ -33,8 +33,6 @@ export default function Header() {
   const [password, setPassword] = useState('');
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
   const router = useRouter();
 
   const RECAPTCHA_SITE_KEY = "6LeH-eMqAAAAAPKYq_dtoyDrNcuAath4MvgTa1_a";
@@ -50,17 +48,6 @@ export default function Header() {
       email: string;
       isAdmin?: boolean;
     };
-  }
-
-  interface Category {
-    id: number;
-    name: string;
-  }
-
-  interface Product {
-    id: number;
-    name: string;
-    price: number;
   }
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -121,77 +108,21 @@ export default function Header() {
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Función de logout que limpia los datos del localStorage
   const handleLogout = () => {
-    // Limpiar el contexto de sesión de la aplicación
     clearUserSession();
-
-    // Eliminar los items del localStorage
     localStorage.removeItem('session');
     localStorage.removeItem('token');
     localStorage.removeItem('cart');
     localStorage.removeItem('totalPrice');
-
-    // Si deseas eliminar también los items de librerías de terceros:
     localStorage.removeItem('__paypal_storage__');
     localStorage.removeItem('_grecaptcha');
     localStorage.removeItem('ally-supports-cache');
-
-    // Redirigir a la página de login (o a la que prefieras)
     router.push('/login');
   };
 
-  // Muestra un indicador mientras la sesión se carga
   if (sessionLoading) {
     return <div>Cargando...</div>;
   }
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch(
-          'https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products/categories',
-          {
-            headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
-          }
-        );
-
-        if (!res.ok) {
-          console.error("Error fetching categories:", res.statusText);
-          return;
-        }
-
-        const categoriesData = await res.json();
-        setCategories(categoriesData);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(
-          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=195&per_page=20`,
-          {
-            headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
-          }
-        );
-
-        if (!res.ok) {
-          console.error("Error fetching products:", res.statusText);
-          return;
-        }
-
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchCategories();
-    fetchProducts();
-  }, []);
 
   return (
     <header className="bg-[#041E42] p-4 border-b-4 border-[#AC252D]">
