@@ -52,7 +52,16 @@ export default function Header() {
     };
   }
 
-
+  interface Category {
+    id: number;
+    name: string;
+  }
+  
+  interface Product {
+    id: number;
+    name: string;
+    price: number;
+  }
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
