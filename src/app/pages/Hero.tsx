@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { Truck } from 'lucide-react'
 import Link from 'next/link'; // Importa Link
 
-
+//hero
 export default function Hero() {
   return (
     <div className="relative w-full h-[400px]">
