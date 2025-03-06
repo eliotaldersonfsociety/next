@@ -77,9 +77,10 @@ const Belleza = () => {
                         className="w-full h-64 object-cover mb-4 rounded-md"
                       />
                       <h2 className="text-xl mb-2">{product.name}</h2>
-                        {/* Mostrar precios */}
+                        
+                        {/* Mostrar precios correctamente */}
                         <div className="product-price text-lg font-bold text-gray-900">
-                          {salePrice && salePrice !== regularPrice ? (
+                          {salePrice > 0 && salePrice !== regularPrice ? (
                             <>
                               <span className="line-through text-gray-500">
                                 ${regularPrice.toFixed(2)}
@@ -107,5 +108,6 @@ const Belleza = () => {
     </>
   );
 };
+
 
 export default Belleza;
