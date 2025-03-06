@@ -5,7 +5,7 @@ import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import Link from "next/link";
 import Header from "../../Header";
-import Footer from "../../footer"; // Cambié "footer" a "Footer" para seguir convenciones de nombres
+import Footer from "../../Footer"; // Asegúrate de que el nombre del componente esté correctamente capitalizado
 
 const ck = "ck_6caec8dbb8183c4d8dfa54621166a33d54cb6c13";
 const cs = "cs_34e358ad9715dff7db34a38688e8382877a2ed5a";
@@ -55,7 +55,9 @@ const Hogar = () => {
       <Header />
       <div className="bg-white lg:mx-36">
         <main className="text-center px-5 mt-20 pb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Hogar y Jardin</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">
+            Hogar y Jardín
+          </h1>
 
           {loading ? (
             <div className="flex items-center justify-center h-64">
@@ -78,25 +80,34 @@ const Hogar = () => {
                         className="w-full h-64 object-cover mb-4 rounded-md"
                       />
                       <h2 className="text-xl mb-2">{product.name}</h2>
-                       {/* Mostrar precios */}
-                  <div className="product-price text-lg font-bold text-gray-900">
-                    {product.sale_price && product.sale_price !== product.regular_price ? (
-                      <>
-                        <span className="line-through text-gray-500">${product.regular_price}</span>{" "}
-                        <span className="text-red-500 text-2xl font-extrabold">${product.sale_price}</span>
-                      </>
-                    ) : (
-                      <span>${product.regular_price}</span>
-                    )}
+                      {/* Mostrar precios */}
+                      <div className="product-price text-lg font-bold text-gray-900">
+                        {product.sale_price &&
+                        product.sale_price !== product.regular_price ? (
+                          <>
+                            <span className="line-through text-gray-500">
+                              ${product.regular_price}
+                            </span>{" "}
+                            <span className="text-red-500 text-2xl font-extrabold">
+                              ${product.sale_price}
+                            </span>
+                          </>
+                        ) : (
+                          <span>${product.regular_price}</span>
+                        )}
+                      </div>
+                    </Link>
                   </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-      </main>
-      <Footer />
-    </div>
+                ))
+              ) : (
+                <p>No hay productos disponibles en esta categoría.</p>
+              )}
+            </div>
+          )}
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
