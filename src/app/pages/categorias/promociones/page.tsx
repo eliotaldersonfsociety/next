@@ -27,7 +27,7 @@ const Alimentos = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?per_page=20`,
+          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?per_page=40`,
           {
             headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
           }
@@ -78,23 +78,27 @@ const Alimentos = () => {
                         className="w-full h-64 object-cover mb-4 rounded-md"
                       />
                       <h2 className="text-xl mb-2">{product.name}</h2>
-
-                      {/* Mostrar precios */}
-                      <div className="product-price text-lg font-bold text-gray-900">
-                        {product.sale_price && product.sale_price !== product.regular_price ? (
-                          <>
-                            <span className="line-through text-gray-500">${product.regular_price}</span>{" "}
-                            <span className="text-red-500 text-2xl font-extrabold">${product.sale_price}</span>
-                          </>
-                        ) : (
-                          <span>${product.regular_price}</span>
-                        )}
-                      </div>
-                    </Link>
-                  </div>
-                ))
+                        {/* Mostrar precios */}
+                        <div className="product-price text-lg font-bold text-gray-900">
+                          {salePrice && salePrice !== regularPrice ? (
+                            <>
+                              <span className="line-through text-gray-500">
+                                ${regularPrice.toFixed(2)}
+                              </span>{" "}
+                              <span className="text-red-500 text-2xl font-extrabold">
+                                ${salePrice.toFixed(2)}
+                              </span>
+                            </>
+                          ) : (
+                            <span>${regularPrice.toFixed(2)}</span>
+                          )}
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })
               ) : (
-                <p>No products found.</p>
+                <p>No hay productos disponibles en esta categoría.</p>
               )}
             </div>
           )}
