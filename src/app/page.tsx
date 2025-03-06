@@ -64,6 +64,7 @@ export default function Home() {
       <CategoryCards />
 
       <main className="text-center mt-20 px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 capitalize">Productos</h1>
 
         {loading ? ( // Muestra el spinner si está cargando
@@ -103,6 +104,7 @@ export default function Home() {
             ))}
           </div>
         )}
+        </div>
       </main>
       <Footer />
     </div>
