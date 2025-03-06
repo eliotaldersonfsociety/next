@@ -35,11 +35,23 @@ const categoryCards = [
   {
     title: "Electrónica",
     mainImage: "/t52.png",
+    link: "https://next-navy-seven.vercel.app/product/142",
     subImages: [
-      "https://ae-pic-a1.aliexpress-media.com/kf/S5dec004714b4441cb5a0a36acd411512R.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/S7de3633ba16a4c579be8cc592b4da1c9P.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/Se79d470ae60b427a8c040f60a4883ed6p.jpg_960x960q75.jpg_.avif",
-      "https://ae-pic-a1.aliexpress-media.com/kf/H3cd4207d606b422cbc2045461792238eZ.jpg_960x960q75.jpg_.avif"
+      {
+        src:"https://ae-pic-a1.aliexpress-media.com/kf/S5dec004714b4441cb5a0a36acd411512R.jpg_960x960q75.jpg_.avif",
+        link: "https://next-navy-seven.vercel.app/product/189"
+      },
+      }
+        src:"https://ae-pic-a1.aliexpress-media.com/kf/S7de3633ba16a4c579be8cc592b4da1c9P.jpg_960x960q75.jpg_.avif",
+        link:"https://next-navy-seven.vercel.app/product/197"
+      },
+      {
+        src:"https://ae-pic-a1.aliexpress-media.com/kf/Se79d470ae60b427a8c040f60a4883ed6p.jpg_960x960q75.jpg_.avif",
+        link:"https://next-navy-seven.vercel.app/product/206"
+      },
+      {
+        src:"https://ae-pic-a1.aliexpress-media.com/kf/H3cd4207d606b422cbc2045461792238eZ.jpg_960x960q75.jpg_.avif",
+        link:"https://next-navy-seven.vercel.app/product/223"
     ]
   },
   {
