@@ -18,7 +18,7 @@ interface Product {
   sale_price: string;
 }
 
-const Alimentos = () => {
+const Promociones = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -109,4 +109,4 @@ const Alimentos = () => {
   );
 };
 
-export default Alimentos;
+export default Promociones;
