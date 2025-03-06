@@ -33,6 +33,8 @@ export default function Header() {
   const [password, setPassword] = useState('');
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null); 
   const [searchQuery, setSearchQuery] = useState('');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const router = useRouter();
 
   const RECAPTCHA_SITE_KEY = "6LeH-eMqAAAAAPKYq_dtoyDrNcuAath4MvgTa1_a";
@@ -134,27 +136,68 @@ export default function Header() {
     return <div>Cargando...</div>;
   }
   
-  const fetchCategories = async () => {
-    try {
-      const res = await fetch(
-        'https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products/categories',
-        {
-          headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(
+          'https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products/categories',
+          {
+            headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
+          }
+        );
+
+        if (!res.ok) {
+          console.error("Error fetching categories:", res.statusText);
+          return [];
         }
-      );
-  
-      if (!res.ok) {
-        console.error("Error fetching categories:", res.statusText);
-        return [];
+
+        const categoriesData = await res.json();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error("Error:", error);
       }
-  
-      const categories = await res.json();
-      return categories;
-    } catch (error) {
-      console.error("Error:", error);
-      return [];
-    }
-  };
+    };
+
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `https://texasstore-108ac1a.ingress-haven.ewp.live/wp-json/wc/v3/products?category=195&per_page=20`,
+          {
+            headers: { Authorization: `Basic ${btoa(`${ck}:${cs}`)}` },
+          }
+        );
+
+        if (!res.ok) {
+          console.error("Error fetching products:", res.statusText);
+          return;
+        }
+
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+    fetchProducts();
+  }, []);
+
+  const filteredProducts = products.filter((product) => {
+    const lowerSearchQuery = searchQuery.toLowerCase();
+
+    // Buscar por nombre de producto o por categoría
+    const matchesCategory = categories.some((category) =>
+      category.name.toLowerCase().includes(lowerSearchQuery)
+    );
+
+    const matchesProduct = product.name.toLowerCase().includes(lowerSearchQuery);
+
+    return matchesCategory || matchesProduct;
+  });
 
   
 
