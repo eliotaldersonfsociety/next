@@ -76,16 +76,28 @@ const Mascotas = () => {
                         height={500}
                         className="w-full h-64 object-cover mb-4 rounded-md"
                       />
-                      <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-                      <div
-                        className="product-price text-lg font-bold text-gray-900"
-                        dangerouslySetInnerHTML={{ __html: product.price_html }}
-                      />
-                    </Link>
-                  </div>
-                ))
+                      <h2 className="text-xl mb-2">{product.name}</h2>
+                        {/* Mostrar precios */}
+                        <div className="product-price text-lg font-bold text-gray-900">
+                          {salePrice && salePrice !== regularPrice ? (
+                            <>
+                              <span className="line-through text-gray-500">
+                                ${regularPrice.toFixed(2)}
+                              </span>{" "}
+                              <span className="text-red-500 text-2xl font-extrabold">
+                                ${salePrice.toFixed(2)}
+                              </span>
+                            </>
+                          ) : (
+                            <span>${regularPrice.toFixed(2)}</span>
+                          )}
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })
               ) : (
-                <p>No products found.</p>
+                <p>No hay productos disponibles en esta categoría.</p>
               )}
             </div>
           )}
@@ -95,5 +107,4 @@ const Mascotas = () => {
     </>
   );
 };
-
 export default Mascotas;
