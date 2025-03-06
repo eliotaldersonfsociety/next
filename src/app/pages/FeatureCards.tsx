@@ -1,6 +1,6 @@
 "use client"; // Asegúrate de que se ejecute en el cliente
 import { useRouter } from "next/navigation";
-import { UserPlus, Smartphone, Grid, Package, Shirt } from 'lucide-react'
+import { UserPlus, Smartphone, Package, Shirt, Dog } from 'lucide-react'
 
 const cards = [
   {
@@ -25,10 +25,11 @@ const cards = [
     path: "/pages/categorias/celulares"
   },
   {
-    title: 'Nuestras categorías',
-    icon: Grid,
+    title: 'Mascotas',
+    icon: Dog,
     description: 'Encuentra celulares, ropa, zapatos y más',
-    buttonText: 'Ir a categorías',
+    buttonText: 'Ir a mascotas',
+    path: "/pages/categorias/mascotas"
   },
   {
     title: 'Recibe tus compras',
