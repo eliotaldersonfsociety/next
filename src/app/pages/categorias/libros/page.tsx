@@ -53,7 +53,8 @@ const Libros = () => {
     <>
       <Header />
       <div className="bg-white lg:mx-36">
-        <main className="text-center px-5 mt-20 pb-12">Libros</h1>
+        <main className="text-center px-5 mt-20 pb-12">
+          <h1>Libros</h1>
 
           {loading ? (
             <div className="flex items-center justify-center h-64">
