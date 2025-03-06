@@ -15,14 +15,14 @@ const cards = [
     icon: Shirt,
     description: 'Encuentra el estilo que se adapta a ti',
     buttonText: 'Buscar Ropa',
-    path: "/pages/catgorias/moda"
+    path: "/pages/categorias/moda"
   },
   {
     title: 'Celulares y teléfonos',
     icon: Smartphone,
     description: 'Descubre celulares que son tendencia',
     buttonText: 'Ir a celulares',
-    path: "/pages/catgorias/celulares"
+    path: "/pages/categorias/celulares"
   },
   {
     title: 'Nuestras categorías',
