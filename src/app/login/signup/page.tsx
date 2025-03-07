@@ -181,7 +181,7 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
               {error && <p className="text-red-500 text-sm">{error}</p>}
 
               {/* Botón de submit */}
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full" disabled={loading} aria-disabled={loading}>
                 {loading ? "Processing..." : isLogin ? "Login" : "Sign Up"}
               </Button>
 
