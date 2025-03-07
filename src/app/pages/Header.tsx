@@ -25,6 +25,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Toaster, toast } from "react-hot-toast";
+
 
 export default function Header() {
   const { cart, isCartOpen, setIsCartOpen, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
@@ -144,10 +146,10 @@ export default function Header() {
         router.push('/dashboard')
       }
 
-      alert('Inicio de sesión exitoso');
+      toast.success('Inicio de sesión exitoso');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      alert((error as Error).message || 'Hubo un problema al iniciar sesión.');
+      toast.error((error as Error).message || 'Hubo un problema al iniciar sesión.');
     }
   };
 
