@@ -25,7 +25,7 @@ const promoCards = [
     buttonText: 'Descubrir',
     imageSrc: '/t16.png',
     imageAlt: 'Auriculares de alta calidad',
-    path: "/pages/categorias/gamer",
+    path: "/pages/categorias/electronica",
   },
   {
     title: 'EQUIPA TU HOGAR INTELIGENTE',
