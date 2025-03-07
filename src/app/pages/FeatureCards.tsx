@@ -27,7 +27,7 @@ const cards = [
   {
     title: 'Mascotas',
     icon: Dog,
-    description: 'Encuentra celulares, ropa, zapatos y más',
+    description: 'Encuentra todo para tu mascota y más',
     buttonText: 'Ir a mascotas',
     path: "/pages/categorias/mascotas"
   },
