@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+
 
 const promoCards = [
   {
@@ -7,6 +9,7 @@ const promoCards = [
     buttonText: 'Ver más',
     imageSrc: '/t2.png',
     imageAlt: 'Smartphone última generación',
+    path: "/pages/categorias/celulares",
   },
   {
     title: 'LLEVA TU JUEGO AL SIGUIENTE NIVEL',
@@ -14,6 +17,7 @@ const promoCards = [
     buttonText: 'Ver más',
     imageSrc: '/t3.png',
     imageAlt: 'Consola PS5 con control',
+    path: "/pages/categorias/gamer",
   },
   {
     title: 'MEJORA TU EXPERIENCIA DE AUDIO',
@@ -21,6 +25,7 @@ const promoCards = [
     buttonText: 'Descubrir',
     imageSrc: '/t16.png',
     imageAlt: 'Auriculares de alta calidad',
+    path: "/pages/categorias/gamer",
   },
   {
     title: 'EQUIPA TU HOGAR INTELIGENTE',
@@ -28,6 +33,7 @@ const promoCards = [
     buttonText: 'Explorar',
     imageSrc: '/t20.png',
     imageAlt: 'Dispositivos de hogar inteligente',
+    path: "/pages/categorias/hogar",
   },
 ]
 
@@ -114,9 +120,11 @@ export default function PromoCards() {
                 <div className="p-6 space-y-4 flex-1">
                   <p className="text-sm text-gray-600 uppercase tracking-wide">{card.subtitle}</p>
                   <h3 className="text-2xl md:text-3xl font-extrabold">{card.title}</h3>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition-colors">
-                    {card.buttonText}
-                  </button>
+                  <Link href={card.path} passHref>
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition-colors">
+                      {card.buttonText}
+                    </button>
+                  </Link>
                 </div>
                 {/* Imagen adaptada para móviles y pantallas grandes */}
                 <div className="relative w-full md:w-48 h-40 md:h-48">
