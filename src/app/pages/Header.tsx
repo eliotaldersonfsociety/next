@@ -309,6 +309,7 @@ export default function Header() {
           </div>
         </div>
       </div>
+    <Toaster position="top-right" reverseOrder={false} />
     </header>
   );
 }
